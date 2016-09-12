@@ -8,7 +8,7 @@
 
 import React from 'react';
 import FRC from 'formsy-react-components';
-import EmptyForm from './EmptyForm';
+import EmptyForm from 'emptyform';
 import ReactResumableJs from './ReactResumableJs'
 
 const { Input, Textarea } = FRC;

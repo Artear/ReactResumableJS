@@ -1,7 +1,7 @@
 {
   "name": "react-resumable-js",
-  "version": "1.0.1",
-  "description": "It creates a generic wrapper for the form. So you need to add the content of the inside form, from another React Component.",
+  "version": "1.0.2",
+  "description": "Upload component in React for using with Resumable JS",
   "main": "index.js",
   "directories": {
     "example": "example"
@@ -41,7 +41,8 @@
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "resumablejs": "^1.0.2"
+    "resumablejs": "^1.0.2",
+    "emptyform": "1.0.6"
   },
 
   "devDependencies": {
