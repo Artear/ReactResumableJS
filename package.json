@@ -1,0 +1,57 @@
+{
+  "name": "React Resumable js",
+  "version": "1.0.1",
+  "description": "It creates a generic wrapper for the form. So you need to add the content of the inside form, from another React Component.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Artear/ReactResumableJS.git"
+  },
+  "keywords": [
+    "resumable js", "react js"
+  ],
+  "author": {
+    "name": "Gonzalo Rubino",
+    "email": "gonzalo_rubino@artear.com",
+    "url": "https://github.com/grubinoartear",
+    "company": "Artear"
+  },
+  "contributors": [
+    {
+      "name": "Alejo Daraio",
+      "url": "https://github.com/alejodaraio"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Artear/ReactResumableJS/issues"
+  },
+  "homepage": "https://github.com/Artear/ReactResumableJS#readme",
+
+  "dependencies": {
+    "core-js": "^2.0.0",
+    "formsy-react": "^0.18.1",
+    "formsy-react-components": "^0.8.1",
+    "normalize.css": "^4.0.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "resumablejs": "^1.0.2"
+  },
+
+  "devDependencies": {
+    "babel-core": "^6.0.20",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.0.15",
+    "webpack": "^1.9.6",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.0.0"
+  }
+}
