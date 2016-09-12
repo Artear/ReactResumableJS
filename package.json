@@ -1,5 +1,5 @@
 {
-  "name": "React Resumable js",
+  "name": "react-resumable-js",
   "version": "1.0.1",
   "description": "It creates a generic wrapper for the form. So you need to add the content of the inside form, from another React Component.",
   "main": "index.js",
