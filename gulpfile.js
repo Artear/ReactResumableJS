@@ -5,8 +5,8 @@ var connect = require('gulp-connect');
 var gulp = require('gulp');
 
 gulp.task('source-js', function () {
-    return gulp.src('./src/EmptyForm.js')
-        .pipe(concat('emptyform.js'))
+    return gulp.src('./src/ReactResumableJs.js')
+        .pipe(concat('react-resumable-js.js'))
         .pipe(babel({
             plugins: ['transform-object-assign'],
             presets: ['es2015', 'react']
