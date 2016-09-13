@@ -1,20 +1,23 @@
 {
   "name": "react-resumable-js",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Upload component in React for using with Resumable JS",
-  "main": "index.js",
+  "main": "./build/react-resumable-js",
   "directories": {
     "example": "example"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Artear/ReactResumableJS.git"
   },
   "keywords": [
-    "resumable js", "react js"
+    "resumable js",
+    "react js",
+    "react",
+    "emptyform"
   ],
   "author": {
     "name": "Gonzalo Rubino",
