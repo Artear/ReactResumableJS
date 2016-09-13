@@ -1,6 +1,6 @@
 {
   "name": "react-resumable-js",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Upload component in React for using with Resumable JS",
   "main": "./build/react-resumable-js",
   "directories": {
@@ -9,7 +9,7 @@
     "src": "src"
   },
   "scripts": {
-    "install": "npm install & gulp build"
+    "build": "npm install & gulp build"
   },
   "repository": {
     "type": "git",
