@@ -4,10 +4,12 @@
   "description": "Upload component in React for using with Resumable JS",
   "main": "./build/react-resumable-js",
   "directories": {
-    "example": "example"
+    "example": "example",
+    "build": "build",
+    "src": "src"
   },
   "scripts": {
-    "build": "gulp build"
+    "postinstall": "grunt build"
   },
   "repository": {
     "type": "git",
