@@ -1,6 +1,6 @@
 # React Resumable JS
 Resumable JS for React JS
-version 1.0.8
+version 1.0.9
 
 Creates an uploader component in React, to use with Resumable JS
 On file added, the upload will begin.
