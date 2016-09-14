@@ -1,6 +1,6 @@
 # React Resumable JS
 Resumable JS for React JS
-version 1.0.10
+version 1.0.11
 
 Creates an uploader component in React, to use with Resumable JS
 On file added, the upload will begin.
@@ -17,3 +17,4 @@ Options:
 - options.onUploadErrorCallback Function to call on Upload error. @returns file and message
 - options.onFileAddedError Function to call on File Added error. @returns file and errorCount
 - options.headerObject Optional, if you need to add a headers object.
+- options.onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
