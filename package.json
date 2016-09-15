@@ -1,6 +1,6 @@
 {
   "name": "react-resumable-js",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Upload component in React for using with Resumable JS",
   "main": "./build/react-resumable-js",
   "directories": {
@@ -38,18 +38,16 @@
     "url": "https://github.com/Artear/ReactResumableJS/issues"
   },
   "homepage": "https://github.com/Artear/ReactResumableJS#readme",
-
   "dependencies": {
     "core-js": "^2.0.0",
+    "emptyform": "1.0.6",
     "formsy-react": "^0.18.1",
     "formsy-react-components": "^0.8.1",
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "resumablejs": "^1.0.2",
-    "emptyform": "1.0.6"
+    "resumablejs": "^1.0.2"
   },
-
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-loader": "^6.0.1",
