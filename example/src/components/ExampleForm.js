@@ -2,16 +2,14 @@
 
 @author Gonzalo Rubino on Thursday, September 8th, 2016, 10:54:00 AM
 @version 1.0
-@Description TN y La Gente Publish Form
+@Description Example Form
 
 */
 
 import React from 'react';
 import FRC from 'formsy-react-components';
 import EmptyForm from 'emptyform';
-import ReactResumableJs from './ReactResumableJs'
-
-const { Input, Textarea } = FRC;
+import ReactResumableJs from '../../../src/ReactResumableJs';
 
 const ContentInside = React.createClass({
   mixins: [FRC.ParentContextMixin],
@@ -21,20 +19,22 @@ const ContentInside = React.createClass({
   },
 
   render() {
+
+      let self = this;
+
       let optionsObject = {
         'uploaderID': 'image-upload',
-        'filetypes': '["jpg", "png"]',
-        'fileAddedMessage': 'INICIANDO',
-        'completedMessage': 'COMPLETADO! : ',
-        'service': 'http://local.next.tn.com.ar:8080/3.0/uploader/image.json',
-        'textLabel': '¿Pudiste tomar fotos o filmar un video?',
-        'previousText': 'Arrastrá a esta ventana tus fotos y videos:',
+        'filetypes': ["jpg", "png"],
+        'fileAddedMessage': 'Started!',
+        'completedMessage': 'Complete! : ',
+        'service': 'http://localhost:3000/upload',
+        'textLabel': 'Uploaded files',
+        'previousText': 'Drop to upload your media:',
         'disableDragAndDrop': true,
-        'headerObject': {
-            "UIDSignature": "123=",
-            "signatureTimestamp": "456",
-            "UID" : 123456789
-        }
+        'onFileSuccess': function (files) {
+          self.props.setFiles(files);
+        },
+        'headerObject': {}
       };
 
       return (
@@ -50,17 +50,27 @@ export default class ExampleForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      files: []
     };
+
+    this.submit = this.submit.bind(this);
+    this.setFiles = this.setFiles.bind(this);
+  }
+
+  setFiles(files) {
+    this.setState({
+      files: files
+    });
   }
 
   submit(data) {
-    console.log('Data of the Form: ', data)
+    console.log('my files', this.state.files);
+    console.log('Data of the Form: ', data);
   }
 
   render() {
     return (
-      <EmptyForm insideForm={<ContentInside />} submitValue="Publish" submitAction={this.submit}/>
+      <EmptyForm insideForm={<ContentInside setFiles={this.setFiles} />} submitValue="Publish" submitAction={this.submit}/>
     );
   }
 
