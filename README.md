@@ -18,3 +18,13 @@ Options:
 - options.onFileAddedError Function to call on File Added error. @returns file and errorCount
 - options.headerObject Optional, if you need to add a headers object.
 - options.onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
+
+**Folders**
+- build: last deploy build
+- example: webpack dev server to run the demo
+    - server: nodejs server to upload the files
+
+**Example:**
+
+- Start up the nodejs server with  npm install && npm start
+- Start up the webpack dev server with npm install && npm start
