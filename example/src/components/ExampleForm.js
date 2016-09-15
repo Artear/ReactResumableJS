@@ -2,7 +2,7 @@
 
 @author Gonzalo Rubino on Thursday, September 8th, 2016, 10:54:00 AM
 @version 1.0
-@Description TN y La Gente Publish Form
+@Description Example Form
 
 */
 
@@ -25,11 +25,11 @@ const ContentInside = React.createClass({
       let optionsObject = {
         'uploaderID': 'image-upload',
         'filetypes': ["jpg", "png"],
-        'fileAddedMessage': 'INICIANDO',
-        'completedMessage': 'COMPLETADO! : ',
+        'fileAddedMessage': 'Started!',
+        'completedMessage': 'Complete! : ',
         'service': 'http://localhost:3000/upload',
-        'textLabel': '¿Pudiste tomar fotos o filmar un video?',
-        'previousText': 'Arrastrá a esta ventana tus fotos y videos:',
+        'textLabel': 'Uploaded files',
+        'previousText': 'Drop to upload your media:',
         'disableDragAndDrop': true,
         'onFileSuccess': function (files) {
           self.props.setFiles(files);
@@ -64,9 +64,6 @@ export default class ExampleForm extends React.Component {
   }
 
   submit(data) {
-
-
-
     console.log('my files', this.state.files);
     console.log('Data of the Form: ', data);
   }
