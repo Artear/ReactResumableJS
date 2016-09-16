@@ -66,7 +66,7 @@ export default class ExampleForm extends React.Component {
         'previousText': 'Drop to upload your media:',
         'disableDragAndDrop': true,
         'onFileSuccess': function (files) {
-          self.props.setFiles(files);
+          console.log('Object Resumable Files', files)
         },
         'headerObject': {}
       };
