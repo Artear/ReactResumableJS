@@ -3,6 +3,7 @@ Creates an uploader component in React, to use with Resumable JS.
 
 [![NPM](https://nodei.co/npm/react-resumable-js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-resumable-js/)
 
+[![CircleCI](https://circleci.com/gh/Artear/ReactResumableJS/tree/master.svg?style=svg)](https://circleci.com/gh/Artear/ReactResumableJS/tree/master)
 
 On file added, the upload will begin.
 
