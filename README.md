@@ -23,26 +23,6 @@ Options:
     - server: nodejs server to upload the files
 - src: source code
 
-
-**Example:**
-
-First you must install pm2 as global, so run:
-
-`sudo npm install -g pm2`
-
-If are you cloning the repo, you must run on root folder:
-
-`npm install`
-
-To startup the example just run into ./example folder:
-
-`npm start`
-
-To stop the example run:
-
-`npm stop`
-
-
 **Example Code**
 
 ```javascript
@@ -80,3 +60,21 @@ export default class ExampleForm extends React.Component {
   }
 });
 ```
+
+**Runing Example:**
+
+First you must install pm2 as global, so run:
+
+`sudo npm install -g pm2`
+
+If are you cloning the repo, you must run on root folder:
+
+`npm install`
+
+To startup the example just run into ./example folder:
+
+`npm start`
+
+To stop the example run:
+
+`npm stop`
