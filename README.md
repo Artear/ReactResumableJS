@@ -7,7 +7,7 @@ On file added, the upload will begin.
 
 `npm i react-resumable-js`
 
-Options:
+**Options:**
 - options.uploaderID The uploader ID. Ex: "image-upload"
 - options.filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
 - options.fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
