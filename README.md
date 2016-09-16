@@ -21,8 +21,18 @@ Options:
 - build: last deploy build
 - example: webpack dev server to run the demo
     - server: nodejs server to upload the files
+- src: source code
 
 **Example:**
 
-- Start up the nodejs server with  npm install && npm start
-- Start up the webpack dev server with npm install && npm start
+First you must install pm2 as global, so run:
+
+`sudo npm install -g pm2`
+
+To startup the example just run:
+
+`npm start`
+
+To stop the example run:
+
+`npm stop`

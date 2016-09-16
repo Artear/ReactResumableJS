@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "http",
+      "script": "./server.js",
+      "watch": false,
+      "env": {
+        "env": "dev"
+      }
+    },
+    {
+      "name": "uploader",
+      "script": "./server/app.js"
+    }
+  ]
+}
