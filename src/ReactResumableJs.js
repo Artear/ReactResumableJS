@@ -26,10 +26,7 @@
 
 'use strict';
 import React from "react";
-import FRC from "formsy-react-components";
 import Resumablejs from "resumablejs";
-
-const {File} = FRC;
 
 export default class ReactResumableJs extends React.Component {
     constructor(props) {
@@ -168,7 +165,8 @@ export default class ReactResumableJs extends React.Component {
             <div id='dropTarget'>
                 <p>{this.props.options.previousText ? this.props.options.previousText : ''}</p>
 
-                <File
+                <input
+                    type="file"
                     id={this.props.options.uploaderID}
                     className='btn'
                     name='image-upload'
