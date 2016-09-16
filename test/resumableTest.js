@@ -1,9 +1,9 @@
 import "babel-polyfill";
-import createComponent from './helpers/shallowRenderHelper';
-import renderIntoDocument from "./helpers/shallowRenderIntoDocumentHelper";
+import createComponent from "./helpers/shallowRenderHelper";
 import ReactResumableJs from "../src/ReactResumableJs";
 import {expect} from "chai";
-import 'jsdom-global/register';
+import "jsdom-global/register";
+import React from "react";
 
 describe('React ResumableJs Component', function () {
 
