@@ -3,6 +3,10 @@
 Creates an uploader component in React, to use with Resumable JS
 On file added, the upload will begin.
 
+**Install:**
+
+`npm i react-resumable-js`
+
 Options:
 - options.uploaderID The uploader ID. Ex: "image-upload"
 - options.filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
