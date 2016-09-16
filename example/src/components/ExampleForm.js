@@ -1,11 +1,3 @@
-/*
-
-@author Gonzalo Rubino on Thursday, September 8th, 2016, 10:54:00 AM
-@version 1.0
-@Description Example Form
-
-*/
-
 import React from 'react';
 import FRC from 'formsy-react-components';
 import EmptyForm from 'emptyform';

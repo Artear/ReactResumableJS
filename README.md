@@ -23,16 +23,60 @@ Options:
     - server: nodejs server to upload the files
 - src: source code
 
+
 **Example:**
 
 First you must install pm2 as global, so run:
 
 `sudo npm install -g pm2`
 
-To startup the example just run:
+If are you cloning the repo, you must run on root folder:
+
+`npm install`
+
+To startup the example just run into ./example folder:
 
 `npm start`
 
 To stop the example run:
 
 `npm stop`
+
+
+Example Code
+
+```javascript
+export default class ExampleForm extends React.Component {
+  
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+
+      let self = this;
+
+      let optionsObject = {
+        'uploaderID': 'image-upload',
+        'filetypes': ["jpg", "png"],
+        'fileAddedMessage': 'Started!',
+        'completedMessage': 'Complete! : ',
+        'service': 'http://localhost:3000/upload',
+        'textLabel': 'Uploaded files',
+        'previousText': 'Drop to upload your media:',
+        'disableDragAndDrop': true,
+        'onFileSuccess': function (files) {
+          self.props.setFiles(files);
+        },
+        'headerObject': {}
+      };
+
+      return (
+          <fieldset>
+            <p>You can add other inputs, selects or stuff right here to complete a form.</p>
+            <ReactResumableJs options={optionsObject} />
+          </fieldset>
+      );
+  }
+});
+```
