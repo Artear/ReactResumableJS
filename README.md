@@ -43,7 +43,7 @@ To stop the example run:
 `npm stop`
 
 
-Example Code
+**Example Code**
 
 ```javascript
 export default class ExampleForm extends React.Component {
