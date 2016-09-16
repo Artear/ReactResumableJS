@@ -1,6 +1,10 @@
 # React Resumable JS
+Creates an uploader component in React, to use with Resumable JS.
 
-Creates an uploader component in React, to use with Resumable JS
+[![NPM](https://nodei.co/npm/react-resumable-js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-resumable-js/)
+
+
+
 On file added, the upload will begin.
 
 **Install:**
