@@ -61,7 +61,7 @@ export default class ExampleForm extends React.Component {
 });
 ```
 
-**Runing Example:**
+**Running Example:**
 
 First you must install pm2 as global, so run:
 
