@@ -71,9 +71,8 @@ export default class ReactResumableJs extends React.Component {
                 messageStatus: self.props.options.fileAddedMessage ? self.props.options.fileAddedMessage : ' Starting upload! '
             });
 
-
             if(typeof self.props.options.onFileAdded === "function"){
-                self.props.options.onFileAdded(self.resumable);
+                self.props.options.onFileAdded(file, self.resumable);
             } else {
                 ResumableField.upload();
             }
