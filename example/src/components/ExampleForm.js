@@ -17,6 +17,7 @@ const ContentInside = React.createClass({
       let optionsObject = {
         'uploaderID': 'image-upload',
         'filetypes': ["jpg", "png"],
+        'fileAccept':'image/*',
         'fileAddedMessage': 'Started!',
         'completedMessage': 'Complete! : ',
         'service': 'http://localhost:3000/upload',
