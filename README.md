@@ -56,6 +56,10 @@ export default class ExampleForm extends React.Component {
         'onFileSuccess': function (files) {
           console.log('Object Resumable Files', files)
         },
+        'onFileAdded': function (file) {
+          console.log('Resumable File Object', file);
+          file.upload();
+        },
         'headerObject': {}
       };
 

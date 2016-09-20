@@ -16,12 +16,11 @@
  @param {String} options.textLabel The label of the upload. Ex: 'What photo do you want to add?'
  @param {String} options.previousText A Text that will be displayed before the component. Optional.
  @param {Boolean} options.disableDragAndDrop True to disable Drag and Drop. Enable by default.
+ @param {Object} options.headerObject Optional, if you need to add a headers object.
  @param {Function} options.onUploadErrorCallback Function to call on Upload error. @returns file and message
  @param {Function} options.onFileAddedError Function to call on File Added error. @returns file and errorCount
- @param {Object} options.headerObject Optional, if you need to add a headers object.
- @param {Function} options.onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
- };
-
+ @param {Function} options.onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component;
+ @param {Function} options.onFileAdded Method to call when file is added.
  */
 
 'use strict';
@@ -70,7 +69,14 @@ export default class ReactResumableJs extends React.Component {
             self.setState({
                 messageStatus: self.props.options.fileAddedMessage ? self.props.options.fileAddedMessage : ' Starting upload! '
             });
-            ResumableField.upload();
+
+
+            if(typeof self.props.options.onFileAdded === "function"){
+                self.props.options.onFileAdded(self.resumable);
+            } else {
+                ResumableField.upload();
+            }
+
         });
 
         ResumableField.on('fileSuccess', function (file, message) {
