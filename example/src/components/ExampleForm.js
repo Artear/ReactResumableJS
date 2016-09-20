@@ -26,6 +26,9 @@ const ContentInside = React.createClass({
         'onFileSuccess': function (files) {
           self.props.setFiles(files);
         },
+        'onFileAdded': function (file) {
+          file.upload();
+        },
         'headerObject': {}
       };
 
