@@ -13,6 +13,7 @@ On file added, the upload will begin.
 
 **Options:**
 - options.uploaderID The uploader ID. Ex: "image-upload"
+- options.fileAccept content type file accept on input file Ex: 'image/*'
 - options.filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
 - options.fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
 - options.completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'
@@ -47,6 +48,7 @@ export default class ExampleForm extends React.Component {
       let optionsObject = {
         'uploaderID': 'image-upload',
         'filetypes': ["jpg", "png"],
+        'fileAccept':'image/*',
         'fileAddedMessage': 'Started!',
         'completedMessage': 'Complete! : ',
         'service': 'http://localhost:3000/upload',

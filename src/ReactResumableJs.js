@@ -9,6 +9,7 @@
  * Options values:
 
  @param {String} options.uploaderID The uploader ID. Ex: "image-upload"
+ @param {String} options.fileAccept content type file accept on input file Ex: 'image/*'
  @param {Array} options.filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
  @param {String} options.fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
  @param {String} options.completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'
@@ -177,7 +178,7 @@ export default class ReactResumableJs extends React.Component {
                     className='btn'
                     name='image-upload'
                     label={this.props.options.textLabel ? this.props.options.textLabel : ''}
-                    accept='image/*'
+                    accept={this.props.options.fileAccept || '*'}
                     capture="camera"
                     multiple
                 />
