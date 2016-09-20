@@ -91,7 +91,11 @@ On file added, the upload will begin.</p>
         <span class="pl-s"><span class="pl-pds">'</span>previousText<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Drop to upload your media:<span class="pl-pds">'</span></span>,
         <span class="pl-s"><span class="pl-pds">'</span>disableDragAndDrop<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
         <span class="pl-s"><span class="pl-pds">'</span><span class="pl-en">onFileSuccess</span><span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">files</span>) {
-          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Object Resumable Files<span class="pl-pds">'</span></span>, files)
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Object Resumable Files<span class="pl-pds">'</span></span>, files);
+        },
+        <span class="pl-s"><span class="pl-pds">'</span><span class="pl-en">onFileAdded</span><span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">file</span>) {
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Object Resumable File<span class="pl-pds">'</span></span>, file);
+          <span class="pl-smi">file</span>.<span class="pl-en">upload</span>();
         },
         <span class="pl-s"><span class="pl-pds">'</span>headerObject<span class="pl-pds">'</span></span><span class="pl-k">:</span> {}
       };
