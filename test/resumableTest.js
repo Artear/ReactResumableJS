@@ -26,7 +26,7 @@ describe('React ResumableJs Component', function () {
     };
 
     beforeEach(() => {
-        component = createComponent(ReactResumableJs, {options: optionsObject});
+        component = createComponent(ReactResumableJs, {optionsObject});
     });
 
     it('should have component id as dropTarget', () => {
