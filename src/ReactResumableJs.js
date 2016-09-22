@@ -51,6 +51,9 @@ export default class ReactResumableJs extends React.Component {
                 messageStatus: this.props.fileAddedMessage || ' Starting upload! '
             });
 
+            //we set a better and reald unique identifier.
+            file.uniqueIdentifier = Date.now() + file.uniqueIdentifier;
+
             if (typeof this.props.onFileAdded === "function") {
                 this.props.onFileAdded(file, this.resumable);
             } else {
