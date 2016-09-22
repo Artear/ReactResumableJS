@@ -60,9 +60,11 @@ export default class ExampleForm extends React.Component {
 
   render() {
     return (
-      <EmptyForm insideForm={<ContentInside setFiles={this.setFiles}/>} submitValue="Publish"
-                 submitAction={this.submit}/>
+      <EmptyForm
+        insideForm={<ContentInside setFiles={this.setFiles}/>}
+        submitValue="Publish"
+        submitAction={this.submit}
+      />
     );
   }
-
 };
