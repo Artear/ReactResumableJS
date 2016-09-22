@@ -48,9 +48,9 @@ export default class ExampleForm extends React.Component {
   }
 
   setFiles = (file, message) => {
-    console.log(message);
+
     let files = this.state.files.slice();
-        files.push(file);
+    files.push(file);
 
     this.setState({
       files: files
@@ -58,8 +58,7 @@ export default class ExampleForm extends React.Component {
   };
 
   submit = (data) => {
-    console.log('my files', this.state.files);
-    console.log('Data of the Form: ', data);
+    console.log('Files: ', this.state.files);
   };
 
   render() {
