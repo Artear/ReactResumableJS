@@ -26,16 +26,6 @@ let config = Object.assign({}, baseConfig, {
   module: defaultSettings.getDefaultModules()
 });
 
-// Add needed loaders to the defaults here
-/*config.module.loaders.push({
-  test: /\.(js|jsx)$/,
-  loader: 'react-hot!babel-loader',
-  include: [].concat(
-    config.additionalPaths,
-    [ path.join(__dirname, '/../src') ]
-  )
-});*/
-
 config.module.loaders = [
   {
     test: /\.jsx?$/,
@@ -43,7 +33,7 @@ config.module.loaders = [
     exclude: /node_modules/,
     query: {
       cacheDirectory: true,
-      presets: ['react', 'es2015']
+      presets: ['react', 'es2015','stage-0']
     }
   }
 ];

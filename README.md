@@ -1,5 +1,5 @@
 # React Resumable JS
-Creates an uploader component in React, to use with Resumable JS.
+Creates an uploader component in React, to use with [Resumable JS.](http://www.resumablejs.com/)
 
 [![NPM](https://nodei.co/npm/react-resumable-js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-resumable-js/)
 
@@ -7,24 +7,30 @@ Creates an uploader component in React, to use with Resumable JS.
 
 On file added, the upload will begin.
 
+### Changelog:
+- 1.1.0
+    - Removed property options
+    - Now all options are properties ( see the example )
+    - Refactor: functions to arrow functions
+    
 **Install:**
 
 `npm i react-resumable-js`
 
 **Options:**
-- options.uploaderID The uploader ID. Ex: "image-upload"
-- options.fileAccept content type file accept on input file Ex: 'image/*'
-- options.filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
-- options.fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
-- options.completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'
-- options.service The service that will receive the file. Ex: 'http://www.someurl.com/myservice/image.json'
-- options.textLabel The label of the upload. Ex: 'What photo do you want to add?'
-- options.previousText A Text that will be displayed before the component. Optional.
-- options.disableDragAndDrop True to disable Drag and Drop. Enable by default.
-- options.onUploadErrorCallback Function to call on Upload error. @returns file and message
-- options.onFileAddedError Function to call on File Added error. @returns file and errorCount
-- options.headerObject Optional, if you need to add a headers object.
-- options.onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
+- uploaderID The uploader ID. Ex: "image-upload"
+- fileAccept content type file accept on input file Ex: 'image/*'
+- filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
+- fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
+- completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'
+- service The service that will receive the file. Ex: 'http://www.someurl.com/myservice/image.json'
+- textLabel The label of the upload. Ex: 'What photo do you want to add?'
+- previousText A Text that will be displayed before the component. Optional.
+- disableDragAndDrop True to disable Drag and Drop. Enable by default.
+- onUploadErrorCallback Function to call on Upload error. @returns file and message
+- onFileAddedError Function to call on File Added error. @returns file and errorCount
+- headerObject Optional, if you need to add a headers object.
+- onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
 
 **Folders**
 - build: last deploy build
@@ -42,44 +48,34 @@ export default class ExampleForm extends React.Component {
   }
 
   render() {
-
-      let self = this;
-
-      let optionsObject = {
-        'uploaderID': 'image-upload',
-        'filetypes': ["jpg", "png"],
-        'fileAccept':'image/*',
-        'fileAddedMessage': 'Started!',
-        'completedMessage': 'Complete! : ',
-        'service': 'http://localhost:3000/upload',
-        'textLabel': 'Uploaded files',
-        'previousText': 'Drop to upload your media:',
-        'disableDragAndDrop': true,
-        'onFileSuccess': function (files) {
-          console.log('Object Resumable Files', files)
-        },
-        'onFileAdded': function (file) {
-          console.log('Resumable File Object', file);
-          file.upload();
-        },
-        'headerObject': {}
-      };
-
+  
       return (
-          <fieldset>
-            <p>You can add other inputs, selects or stuff right here to complete a form.</p>
-            <ReactResumableJs options={optionsObject} />
-          </fieldset>
+        <fieldset>
+          <p>You can add other inputs, selects or stuff right here to complete a form.</p>
+          <ReactResumableJs
+            uploaderID="image-upload"
+            filetypes={["jpg", "png"]}
+            fileAccept="image/*"
+            fileAddedMessage="Started!"
+            completedMessage="Complete!"
+            service="http://localhost:3000/upload"
+            textLabel="Uploaded files"
+            previousText="Drop to upload your media:"
+            disableDragAndDrop={true}
+            onFileSuccess={(files) => {
+              this.props.setFiles(files);
+            }}
+            onFileAdded={(file, resumable) => {
+              resumable.upload();
+            }}
+          />
+        </fieldset>
       );
-  }
+    }
 });
 ```
 
 **Running Example:**
-
-First you must install pm2 as global, so run:
-
-`sudo npm install -g pm2`
 
 If are you cloning the repo, you must run on root folder:
 

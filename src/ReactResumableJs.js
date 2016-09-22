@@ -1,27 +1,10 @@
 /**
  * Resumable JS for React JS
  * @author Gonzalo Rubino gonzalo_rubino@artear.com || gonzalorubino@gmail.com
- * @version 1.0.11
+ * @version 1.1.0
  *
  * Creates an uploader component in React, to use with Resumable JS
  * On file added, the upload will begin.
- *
- * Options values:
-
- @param {String} options.uploaderID The uploader ID. Ex: "image-upload"
- @param {String} options.fileAccept content type file accept on input file Ex: 'image/*'
- @param {Array} options.filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
- @param {String} options.fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
- @param {String} options.completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'
- @param {String} options.service The service that will receive the file. Ex: 'http://www.someurl.com/myservice/image.json'
- @param {String} options.textLabel The label of the upload. Ex: 'What photo do you want to add?'
- @param {String} options.previousText A Text that will be displayed before the component. Optional.
- @param {Boolean} options.disableDragAndDrop True to disable Drag and Drop. Enable by default.
- @param {Object} options.headerObject Optional, if you need to add a headers object.
- @param {Function} options.onUploadErrorCallback Function to call on Upload error. @returns file and message
- @param {Function} options.onFileAddedError Function to call on File Added error. @returns file and errorCount
- @param {Function} options.onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component;
- @param {Function} options.onFileAdded Method to call when file is added.
  */
 
 'use strict';
@@ -37,83 +20,67 @@ export default class ReactResumableJs extends React.Component {
             fileList: {files: []}
         };
 
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.removeFile = this.removeFile.bind(this);
-        this.createFileList = this.createFileList.bind(this);
         this.resumable = null;
     }
 
-    componentDidMount() {
-        let self = this;
-        var ResumableField = new Resumablejs({
-            target: self.props.options.service,
-            query: {},
-            fileType: self.props.options.filetypes,
-            fileTypeErrorCallback: function (file, errorCount) {
-                if (self.props.options.onFileAddedError !== undefined) {
-                    self.props.options.onFileAddedError(file, errorCount);
+    componentDidMount = () => {
+
+        let ResumableField = new Resumablejs({
+            target: this.props.service,
+            query: this.props.query || {},
+            fileType: this.props.filetypes,
+            fileTypeErrorCallback: (file, errorCount) => {
+                if (this.props.onFileAddedError !== undefined) {
+                    this.props.onFileAddedError(file, errorCount);
                 }
             },
-            testMethod: 'post',
-            testChunks: false,
-            headers: self.props.options.headerObject ? self.props.options.headerObject : {} /* Add your own headers here if needed */
+            testMethod: this.props.testMethod || 'post',
+            testChunks: this.props.testChunks || false,
+            headers: this.props.headerObject || {}
         });
 
         ResumableField.assignBrowse(document.querySelector('input[type=file]'));
 
         //Enable or Disable DragAnd Drop
-        if (self.props.options.disableDragAndDrop === undefined) {
+        if (this.props.disableDragAndDrop === undefined) {
             ResumableField.assignDrop(document.getElementById('dropTarget'));
         }
 
-        ResumableField.on('fileAdded', function (file, event) {
-            self.setState({
-                messageStatus: self.props.options.fileAddedMessage ? self.props.options.fileAddedMessage : ' Starting upload! '
+        ResumableField.on('fileAdded', (file, event) => {
+            this.setState({
+                messageStatus: this.props.fileAddedMessage || ' Starting upload! '
             });
 
-            if(typeof self.props.options.onFileAdded === "function"){
-                self.props.options.onFileAdded(file, self.resumable);
+            if (typeof this.props.onFileAdded === "function") {
+                this.props.onFileAdded(file, this.resumable);
             } else {
                 ResumableField.upload();
             }
 
         });
 
-        ResumableField.on('fileSuccess', function (file, message) {
+        ResumableField.on('fileSuccess', (file, message) => {
 
-            var fileObject = JSON.parse(message);
-            if (fileObject.file != undefined) {
+            let currentFiles = this.state.fileList.files;
+            currentFiles.push(file);
+            this.setState({
+                fileList: {files: currentFiles},
+                messageStatus: this.props.completedMessage + file.fileName || message
+            });
 
-                let currentFiles = self.state.fileList.files;
+            this.props.onFileSuccess(currentFiles);
 
-                //rename the fileName with the new file from server
-                file.fileName = fileObject.file;
-
-                currentFiles.push(file);
-
-                self.setState({
-                    fileList: {files: currentFiles},
-                    messageStatus: self.props.options.completedMessage ? self.props.options.completedMessage + fileObject.file : ' Completed! : ' + fileObject.file
-                });
-
-                self.props.options.onFileSuccess(currentFiles);
-
-            } else {
-                self.setState({
-                    messageStatus: self.props.options.errorMessage ? self.props.options.errorMessage + fileObject.error : 'Error uploading file : ' + fileObject.error
-                });
-            }
         });
 
-        ResumableField.on('progress', function () {
+        ResumableField.on('progress', () => {
             if ((ResumableField.progress() * 100) < 100) {
-                self.setState({
+                this.setState({
                     messageStatus: parseInt(ResumableField.progress() * 100, 10) + '%',
                     progressBar: ResumableField.progress() * 100
                 });
             } else {
-                setTimeout(function () {
-                    self.setState({
+                setTimeout(() => {
+                    this.setState({
                         progressBar: 0
                     })
                 }, 1000);
@@ -121,9 +88,9 @@ export default class ReactResumableJs extends React.Component {
 
         });
 
-        ResumableField.on('fileError', function (file, message) {
-            if (self.props.options.onUploadErrorCallback) {
-                self.props.options.onUploadErrorCallback(file, errorCount);
+        ResumableField.on('fileError', (file, message) => {
+            if (this.props.onUploadErrorCallback) {
+                this.props.onUploadErrorCallback(file, errorCount);
             } else {
                 console.log('fileError');
                 console.log(file);
@@ -132,9 +99,9 @@ export default class ReactResumableJs extends React.Component {
         });
 
         this.resumable = ResumableField;
-    }
+    };
 
-    removeFile(file, index) {
+    removeFile = (file, index) => {
 
         let currentFileList = this.state.fileList.files;
         delete currentFileList[index];
@@ -146,19 +113,19 @@ export default class ReactResumableJs extends React.Component {
         this.resumable.removeFile(file);
     };
 
-    createFileList() {
+    createFileList = () => {
 
-        let self = this;
-        var markup = this.state.fileList.files.map(function (file, index) {
+        let markup = this.state.fileList.files.map((file, index) => {
 
-            var filez = file.file;
-            var fileReader = new FileReader();
-            fileReader.readAsDataURL(filez);
-            fileReader.onload = function (event) {
-                document.querySelector('#image_' + index).src =event.target.result;
+            let originFile = file.file;
+            let fileReader = new FileReader();
+            fileReader.readAsDataURL(originFile);
+            fileReader.onload = (event) => {
+                document.querySelector('#image_' + index).src = event.target.result;
             };
 
-            return <li key={index}><img width="80" id={"image_" + index} /><a onClick={() => self.removeFile(file, index)} href="#">[X]</a></li>;
+            return <li className="thumbnail" key={index}><img width="80" id={"image_" + index}/><a
+                onClick={() => this.removeFile(file, index)} href="#">[X]</a></li>;
 
         });
 
@@ -169,15 +136,15 @@ export default class ReactResumableJs extends React.Component {
 
         return (
             <div id='dropTarget'>
-                <p>{this.props.options.previousText ? this.props.options.previousText : ''}</p>
+                <p>{this.props.previousText || ''}</p>
 
                 <input
                     type="file"
-                    id={this.props.options.uploaderID}
+                    id={this.props.uploaderID}
                     className='btn'
                     name='image-upload'
-                    label={this.props.options.textLabel ? this.props.options.textLabel : ''}
-                    accept={this.props.options.fileAccept || '*'}
+                    label={this.props.textLabel || ''}
+                    accept={this.props.fileAccept || '*'}
                     capture="camera"
                     multiple
                 />
@@ -191,3 +158,23 @@ export default class ReactResumableJs extends React.Component {
         );
     }
 }
+
+ReactResumableJs.propTypes = {
+    uploaderID: React.PropTypes.string,
+    filetypes: React.PropTypes.array,
+    fileAccept: React.PropTypes.string,
+    fileAddedMessage: React.PropTypes.string,
+    completedMessage: React.PropTypes.string,
+    service: React.PropTypes.string,
+    textLabel: React.PropTypes.string,
+    previousText: React.PropTypes.string,
+    disableDragAndDrop: React.PropTypes.bool,
+    onFileSuccess: React.PropTypes.func,
+    onFileAdded: React.PropTypes.func
+};
+
+ReactResumableJs.defaultProps = {
+    uploaderID: 'default-resumable-uploader',
+    filetypes: [],
+    fileAccept: '*'
+};
