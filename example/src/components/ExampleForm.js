@@ -49,6 +49,8 @@ export default class ExampleForm extends React.Component {
 
   setFiles = (file, message) => {
 
+    console.log('Message: ', message);
+
     let files = this.state.files.slice();
     files.push(file);
 
