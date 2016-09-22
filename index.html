@@ -34,26 +34,48 @@
         <h1>
 <a id="react-resumable-js" class="anchor" href="#react-resumable-js" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>React Resumable JS</h1>
 
+<p>Creates an uploader component in React, to use with <a href="http://www.resumablejs.com/">Resumable JS.</a></p>
+
 <p><a href="https://nodei.co/npm/react-resumable-js/"><img src="https://nodei.co/npm/react-resumable-js.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM"></a></p>
 
-<p>Creates an uploader component in React, to use with Resumable JS
-On file added, the upload will begin.</p>
+<p><a href="https://circleci.com/gh/Artear/ReactResumableJS"><img src="https://circleci.com/gh/Artear/ReactResumableJS.svg" alt="CircleCI"></a> <a href="https://circleci.com/gh/Artear/ReactResumableJS"><img src="https://circleci.com/gh/Artear/ReactResumableJS.svg?style=shield" alt="CircleCI"></a></p>
 
-<p>Options:</p>
+<p>On file added, the upload will begin.</p>
+
+<h3>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changelog:</h3>
 
 <ul>
-<li>options.uploaderID The uploader ID. Ex: "image-upload"</li>
-<li>options.filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"</li>
-<li>options.fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'</li>
-<li>options.completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'</li>
-<li>options.service The service that will receive the file. Ex: '<a href="http://www.someurl.com/myservice/image.json">http://www.someurl.com/myservice/image.json</a>'</li>
-<li>options.textLabel The label of the upload. Ex: 'What photo do you want to add?'</li>
-<li>options.previousText A Text that will be displayed before the component. Optional.</li>
-<li>options.disableDragAndDrop True to disable Drag and Drop. Enable by default.</li>
-<li>options.onUploadErrorCallback Function to call on Upload error. <a href="https://github.com/returns" class="user-mention">@returns</a> file and message</li>
-<li>options.onFileAddedError Function to call on File Added error. <a href="https://github.com/returns" class="user-mention">@returns</a> file and errorCount</li>
-<li>options.headerObject Optional, if you need to add a headers object.</li>
-<li>options.onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.</li>
+<li>1.1.0
+
+<ul>
+<li>Removed property options</li>
+<li>Now all options are properties ( see the example )</li>
+<li>Refactor: functions to arrow functions</li>
+</ul>
+</li>
+</ul>
+
+<p><strong>Install:</strong></p>
+
+<p><code>npm i react-resumable-js</code></p>
+
+<p><strong>Options:</strong></p>
+
+<ul>
+<li>uploaderID The uploader ID. Ex: "image-upload"</li>
+<li>fileAccept content type file accept on input file Ex: 'image/*'</li>
+<li>filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"</li>
+<li>fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'</li>
+<li>completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'</li>
+<li>service The service that will receive the file. Ex: '<a href="http://www.someurl.com/myservice/image.json">http://www.someurl.com/myservice/image.json</a>'</li>
+<li>textLabel The label of the upload. Ex: 'What photo do you want to add?'</li>
+<li>previousText A Text that will be displayed before the component. Optional.</li>
+<li>disableDragAndDrop True to disable Drag and Drop. Enable by default.</li>
+<li>onUploadErrorCallback Function to call on Upload error. <a href="https://github.com/returns" class="user-mention">@returns</a> file and message</li>
+<li>onFileAddedError Function to call on File Added error. <a href="https://github.com/returns" class="user-mention">@returns</a> file and errorCount</li>
+<li>headerObject Optional, if you need to add a headers object.</li>
+<li>onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.</li>
 </ul>
 
 <p><strong>Folders</strong></p>
@@ -79,41 +101,32 @@ On file added, the upload will begin.</p>
 
   <span class="pl-en">render</span>() {
 
-      <span class="pl-k">let</span> self <span class="pl-k">=</span> <span class="pl-v">this</span>;
-
-      <span class="pl-k">let</span> optionsObject <span class="pl-k">=</span> {
-        <span class="pl-s"><span class="pl-pds">'</span>uploaderID<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>image-upload<span class="pl-pds">'</span></span>,
-        <span class="pl-s"><span class="pl-pds">'</span>filetypes<span class="pl-pds">'</span></span><span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">"</span>jpg<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>png<span class="pl-pds">"</span></span>],
-        <span class="pl-s"><span class="pl-pds">'</span>fileAddedMessage<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Started!<span class="pl-pds">'</span></span>,
-        <span class="pl-s"><span class="pl-pds">'</span>completedMessage<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Complete! : <span class="pl-pds">'</span></span>,
-        <span class="pl-s"><span class="pl-pds">'</span>service<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>http://localhost:3000/upload<span class="pl-pds">'</span></span>,
-        <span class="pl-s"><span class="pl-pds">'</span>textLabel<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Uploaded files<span class="pl-pds">'</span></span>,
-        <span class="pl-s"><span class="pl-pds">'</span>previousText<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Drop to upload your media:<span class="pl-pds">'</span></span>,
-        <span class="pl-s"><span class="pl-pds">'</span>disableDragAndDrop<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
-        <span class="pl-s"><span class="pl-pds">'</span><span class="pl-en">onFileSuccess</span><span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">files</span>) {
-          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Object Resumable Files<span class="pl-pds">'</span></span>, files);
-        },
-        <span class="pl-s"><span class="pl-pds">'</span><span class="pl-en">onFileAdded</span><span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">file</span>) {
-          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Object Resumable File<span class="pl-pds">'</span></span>, file);
-          <span class="pl-smi">file</span>.<span class="pl-en">upload</span>();
-        },
-        <span class="pl-s"><span class="pl-pds">'</span>headerObject<span class="pl-pds">'</span></span><span class="pl-k">:</span> {}
-      };
-
       <span class="pl-k">return</span> (
-          <span class="pl-k">&lt;</span>fieldset<span class="pl-k">&gt;</span>
-            <span class="pl-k">&lt;</span>p<span class="pl-k">&gt;</span>You can add other inputs, selects or stuff right here to complete a form.<span class="pl-k">&lt;</span><span class="pl-k">/</span>p<span class="pl-k">&gt;</span>
-            <span class="pl-k">&lt;</span>ReactResumableJs options<span class="pl-k">=</span>{optionsObject} <span class="pl-k">/</span><span class="pl-k">&gt;</span>
-          <span class="pl-k">&lt;</span><span class="pl-k">/</span>fieldset<span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>fieldset<span class="pl-k">&gt;</span>
+          <span class="pl-k">&lt;</span>p<span class="pl-k">&gt;</span>You can add other inputs, selects or stuff right here to complete a form.<span class="pl-k">&lt;</span><span class="pl-k">/</span>p<span class="pl-k">&gt;</span>
+          <span class="pl-k">&lt;</span>ReactResumableJs
+            uploaderID<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>image-upload<span class="pl-pds">"</span></span>
+            filetypes<span class="pl-k">=</span>{[<span class="pl-s"><span class="pl-pds">"</span>jpg<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>png<span class="pl-pds">"</span></span>]}
+            fileAccept<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>image/*<span class="pl-pds">"</span></span>
+            fileAddedMessage<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Started!<span class="pl-pds">"</span></span>
+            completedMessage<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Complete!<span class="pl-pds">"</span></span>
+            service<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>http://localhost:3000/upload<span class="pl-pds">"</span></span>
+            textLabel<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Uploaded files<span class="pl-pds">"</span></span>
+            previousText<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Drop to upload your media:<span class="pl-pds">"</span></span>
+            disableDragAndDrop<span class="pl-k">=</span>{<span class="pl-c1">true</span>}
+            onFileSuccess<span class="pl-k">=</span>{(<span class="pl-smi">files</span>) <span class="pl-k">=&gt;</span> {
+              <span class="pl-v">this</span>.<span class="pl-smi">props</span>.<span class="pl-en">setFiles</span>(files);
+            }}
+            onFileAdded<span class="pl-k">=</span>{(<span class="pl-smi">file</span>, <span class="pl-smi">resumable</span>) <span class="pl-k">=&gt;</span> {
+              <span class="pl-smi">resumable</span>.<span class="pl-en">upload</span>();
+            }}
+          <span class="pl-k">/</span><span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span><span class="pl-k">/</span>fieldset<span class="pl-k">&gt;</span>
       );
-  }
+    }
 });</pre></div>
 
 <p><strong>Running Example:</strong></p>
-
-<p>First you must install pm2 as global, so run:</p>
-
-<p><code>sudo npm install -g pm2</code></p>
 
 <p>If are you cloning the repo, you must run on root folder:</p>
 
@@ -126,8 +139,6 @@ On file added, the upload will begin.</p>
 <p>To stop the example run:</p>
 
 <p><code>npm stop</code></p>
-
-<p>Visit this project too at NPM: <a href="https://www.npmjs.com/package/react-resumable-js">React Resumable on NPM</a>.</p>
       </section>
     </div>
 
