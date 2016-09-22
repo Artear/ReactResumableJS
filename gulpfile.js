@@ -9,7 +9,7 @@ gulp.task('source-js', function () {
         .pipe(concat('react-resumable-js.js'))
         .pipe(babel({
             plugins: ['transform-object-assign'],
-            presets: ['es2015', 'react']
+            presets: ['es2015', 'react','stage-0']
         }))
         .pipe(gulp.dest('./build'));
 });
