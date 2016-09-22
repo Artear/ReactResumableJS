@@ -8,6 +8,8 @@ Creates an uploader component in React, to use with [Resumable JS.](http://www.r
 On file added, the upload will begin.
 
 ### Changelog:
+- 1.1.3
+    - fixed example
 - 1.1.2
     - changed unique identifier
     - changed option onFileSuccess, now return file uploaded and server message
@@ -65,8 +67,8 @@ export default class ExampleForm extends React.Component {
             textLabel="Uploaded files"
             previousText="Drop to upload your media:"
             disableDragAndDrop={true}
-            onFileSuccess={(files) => {
-              this.props.setFiles(files);
+            onFileSuccess={(file, message) => {
+              console.log(file, message);
             }}
             onFileAdded={(file, resumable) => {
               resumable.upload();
