@@ -25,8 +25,8 @@ const ContentInside = React.createClass({
           textLabel="Uploaded files"
           previousText="Drop to upload your media:"
           disableDragAndDrop={true}
-          onFileSuccess={(files) => {
-            this.props.setFiles(files);
+          onFileSuccess={(file, message) => {
+            this.props.setFiles(file, message);
           }}
           onFileAdded={(file, resumable) => {
             resumable.upload();
@@ -47,7 +47,11 @@ export default class ExampleForm extends React.Component {
     };
   }
 
-  setFiles = (files) => {
+  setFiles = (file, message) => {
+    console.log(message);
+    let files = this.state.files.slice();
+        files.push(file);
+
     this.setState({
       files: files
     });
