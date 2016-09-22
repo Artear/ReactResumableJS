@@ -8,6 +8,9 @@ Creates an uploader component in React, to use with [Resumable JS.](http://www.r
 On file added, the upload will begin.
 
 ### Changelog:
+- 1.1.2
+    - changed unique identifier
+    - changed option onFileSuccess, now return file uploaded and server message
 - 1.1.0
     - Removed property options
     - Now all options are properties ( see the example )
