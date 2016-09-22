@@ -31,10 +31,9 @@ const ContentInside = React.createClass({
           onFileAdded={(file, resumable) => {
             resumable.upload();
           }}
-      />
-  </fieldset>
-  )
-    ;
+        />
+      </fieldset>
+    );
   }
 });
 

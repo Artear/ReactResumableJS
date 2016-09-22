@@ -10,7 +10,8 @@
   },
   "scripts": {
     "prepublish": "gulp build",
-    "test": "mocha --compilers js:babel-register --ui bdd ./test/resumableTest.js"
+    "test": "mocha --compilers js:babel-register --ui bdd ./test/resumableTest.js",
+    "demo": ""
   },
   "repository": {
     "type": "git",
@@ -64,6 +65,7 @@
     "jsdom-global": "2.1.0",
     "mocha": "3.0.2",
     "mocha-jsdom": "1.1.0",
+    "pm2": "^2.0.15",
     "react-addons-test-utils": "15.3.1",
     "webpack-hot-middleware": "2.0.0"
   }
