@@ -10,8 +10,7 @@
   },
   "scripts": {
     "prepublish": "gulp build",
-    "test": "mocha --compilers js:babel-register --ui bdd ./test/resumableTest.js",
-    "demo": ""
+    "test": "mocha --compilers js:babel-register --ui bdd ./test/resumableTest.js"
   },
   "repository": {
     "type": "git",
