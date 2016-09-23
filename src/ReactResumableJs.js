@@ -131,9 +131,9 @@ export default class ReactResumableJs extends React.Component {
             };
 
             return <li className="thumbnail" key={index}>
-                <div id={"media_" + index}/>
-                <a
-                    onClick={() => this.removeFile(file, index)} href="#">[X]</a></li>;
+                       <label id={"media_" + index}/>
+                       <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                   </li>;
 
         });
 
@@ -143,7 +143,7 @@ export default class ReactResumableJs extends React.Component {
     render() {
 
         return (
-            <div id='dropTarget'>
+            <div id={this.props.dropTargetID}>
                 <p>{this.props.previousText || ''}</p>
 
                 <input
@@ -169,6 +169,7 @@ export default class ReactResumableJs extends React.Component {
 
 ReactResumableJs.propTypes = {
     uploaderID: React.PropTypes.string,
+    dropTargetID: React.PropTypes.string,
     filetypes: React.PropTypes.array,
     fileAccept: React.PropTypes.string,
     fileAddedMessage: React.PropTypes.string,
@@ -184,6 +185,7 @@ ReactResumableJs.propTypes = {
 
 ReactResumableJs.defaultProps = {
     uploaderID: 'default-resumable-uploader',
+    dropTargetID: 'dropTarget',
     filetypes: [],
     fileAccept: '*',
     onUploadErrorCallback: (file, errorCount) => {

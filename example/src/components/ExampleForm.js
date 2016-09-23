@@ -17,6 +17,7 @@ const ContentInside = React.createClass({
         <p>You can add other inputs, selects or stuff right here to complete a form.</p>
         <ReactResumableJs
           uploaderID="image-upload"
+          dropTargetID="myDropTarget"
           filetypes={["jpg", "png", "mp4"]}
           fileAccept="*/*"
           fileAddedMessage="Started!"
