@@ -1,4 +1,5 @@
 # React Resumable JS
+
 Creates an uploader component in React, to use with [Resumable JS.](http://www.resumablejs.com/)
 
 [![NPM](https://nodei.co/npm/react-resumable-js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-resumable-js/)
@@ -8,6 +9,9 @@ Creates an uploader component in React, to use with [Resumable JS.](http://www.r
 On file added, the upload will begin.
 
 ### Changelog:
+- 1.1.4
+    - added support to video and others in preview list
+    - added npm run demo command
 - 1.1.3
     - fixed example
 - 1.1.2
@@ -18,11 +22,11 @@ On file added, the upload will begin.
     - Now all options are properties ( see the example )
     - Refactor: functions to arrow functions
     
-**Install:**
 
+### Install
 `npm i react-resumable-js`
 
-**Options:**
+### Options
 - uploaderID The uploader ID. Ex: "image-upload"
 - fileAccept content type file accept on input file Ex: 'image/*'
 - filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
@@ -37,13 +41,13 @@ On file added, the upload will begin.
 - headerObject Optional, if you need to add a headers object.
 - onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
 
-**Folders**
+### Folders
 - build: last deploy build
 - example: webpack dev server to run the demo
     - server: nodejs server to upload the files
 - src: source code
 
-**Example Code**
+### Example 
 
 ```javascript
 export default class ExampleForm extends React.Component {
@@ -80,16 +84,5 @@ export default class ExampleForm extends React.Component {
 });
 ```
 
-**Running Example:**
-
-If are you cloning the repo, you must run on root folder:
-
-`npm install`
-
-To startup the example just run into ./example folder:
-
-`npm start`
-
-To stop the example run:
-
-`npm stop`
+### Demo
+`npm run demo`
