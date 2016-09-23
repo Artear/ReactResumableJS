@@ -90,13 +90,7 @@ export default class ReactResumableJs extends React.Component {
         });
 
         ResumableField.on('fileError', (file, message) => {
-            if (this.props.onUploadErrorCallback) {
-                this.props.onUploadErrorCallback(file, errorCount);
-            } else {
-                console.log('fileError');
-                console.log(file);
-                console.log(message);
-            }
+            this.props.onUploadErrorCallback(file, errorCount);
         });
 
         this.resumable = ResumableField;
@@ -122,15 +116,28 @@ export default class ReactResumableJs extends React.Component {
             let fileReader = new FileReader();
             fileReader.readAsDataURL(originFile);
             fileReader.onload = (event) => {
-                document.querySelector('#image_' + index).src = event.target.result;
+
+                let media = '';
+                if (file.file.type.indexOf('video') > -1) {
+                    media = '<label class="video">' + originFile.name + '</label>';
+                }
+                else if (file.file.type.indexOf('image') > -1) {
+                    media = '<img class="image" width="80" src="' + event.target.result + '">';
+                } else {
+                    media = '<label class="document">' + originFile.name + '</label>';
+                }
+
+                document.querySelector('#media_' + index).innerHTML = media;
             };
 
-            return <li className="thumbnail" key={index}><img width="80" id={"image_" + index}/><a
-                onClick={() => this.removeFile(file, index)} href="#">[X]</a></li>;
+            return <li className="thumbnail" key={index}>
+                <div id={"media_" + index}/>
+                <a
+                    onClick={() => this.removeFile(file, index)} href="#">[X]</a></li>;
 
         });
 
-        return <ul>{markup}</ul>;
+        return <ul id="fileList">{markup}</ul>;
     };
 
     render() {
@@ -171,11 +178,15 @@ ReactResumableJs.propTypes = {
     previousText: React.PropTypes.string,
     disableDragAndDrop: React.PropTypes.bool,
     onFileSuccess: React.PropTypes.func,
-    onFileAdded: React.PropTypes.func
+    onFileAdded: React.PropTypes.func,
+    onUploadErrorCallback: React.PropTypes.func
 };
 
 ReactResumableJs.defaultProps = {
     uploaderID: 'default-resumable-uploader',
     filetypes: [],
-    fileAccept: '*'
+    fileAccept: '*',
+    onUploadErrorCallback: (file, errorCount) => {
+        console.log('error', file, errorCount);
+    }
 };
