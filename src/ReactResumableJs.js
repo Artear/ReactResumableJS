@@ -30,7 +30,7 @@ export default class ReactResumableJs extends React.Component {
             query: this.props.query || {},
             fileType: this.props.filetypes,
             fileTypeErrorCallback: (file, errorCount) => {
-                if (this.props.onFileAddedError !== undefined) {
+                if (typeof  this.props.onFileAddedError === "function") {
                     this.props.onFileAddedError(file, errorCount);
                 }
             },
@@ -39,11 +39,11 @@ export default class ReactResumableJs extends React.Component {
             headers: this.props.headerObject || {}
         });
 
-        ResumableField.assignBrowse(document.querySelector('input[type=file]'));
+        ResumableField.assignBrowse(document.querySelector('#' + this.props.uploaderID));
 
         //Enable or Disable DragAnd Drop
-        if (this.props.disableDragAndDrop) {
-            ResumableField.assignDrop(document.getElementById('dropTarget'));
+        if (this.props.disableDragAndDrop === true) {
+            ResumableField.assignDrop(document.querySelector('#' + this.props.dropTargetID));
         }
 
         ResumableField.on('fileAdded', (file, event) => {
@@ -150,7 +150,7 @@ export default class ReactResumableJs extends React.Component {
                     type="file"
                     id={this.props.uploaderID}
                     className='btn'
-                    name={this.props.uploaderID + '-image-upload'}
+                    name={this.props.uploaderID + '-upload'}
                     label={this.props.textLabel || ''}
                     accept={this.props.fileAccept || '*'}
                     capture="camera"
