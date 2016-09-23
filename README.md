@@ -9,6 +9,8 @@ Creates an uploader component in React, to use with [Resumable JS.](http://www.r
 On file added, the upload will begin.
 
 ### Changelog:
+- 1.1.6
+    - minor fixed
 - 1.1.5
     - added custom dropTargetId
 - 1.1.4

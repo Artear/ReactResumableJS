@@ -42,7 +42,7 @@ export default class ReactResumableJs extends React.Component {
         ResumableField.assignBrowse(document.querySelector('input[type=file]'));
 
         //Enable or Disable DragAnd Drop
-        if (this.props.disableDragAndDrop === undefined) {
+        if (this.props.disableDragAndDrop) {
             ResumableField.assignDrop(document.getElementById('dropTarget'));
         }
 
@@ -137,7 +137,7 @@ export default class ReactResumableJs extends React.Component {
 
         });
 
-        return <ul id="fileList">{markup}</ul>;
+        return <ul>{markup}</ul>;
     };
 
     render() {
@@ -150,18 +150,18 @@ export default class ReactResumableJs extends React.Component {
                     type="file"
                     id={this.props.uploaderID}
                     className='btn'
-                    name='image-upload'
+                    name={this.props.uploaderID + '-image-upload'}
                     label={this.props.textLabel || ''}
                     accept={this.props.fileAccept || '*'}
                     capture="camera"
                     multiple
                 />
-                <div id='messageStatus'>{this.messageStatus}</div>
-                <div id='myProgress' style={{display: this.state.progressBar == 0 ? "none" : "block"}}>
-                    <div id='myBar' style={{width: this.state.progressBar + '%'}}></div>
+                <div className="uploader-item-status">{this.messageStatus}</div>
+                <div className="progress" style={{display: this.state.progressBar == 0 ? "none" : "block"}}>
+                    <div className="progress-bar" style={{width: this.state.progressBar + '%'}}></div>
                 </div>
 
-                <div id="fileList">{this.createFileList()}</div>
+                <div className="resumable-list" >{this.createFileList()}</div>
             </div>
         );
     }
@@ -190,5 +190,6 @@ ReactResumableJs.defaultProps = {
     fileAccept: '*',
     onUploadErrorCallback: (file, errorCount) => {
         console.log('error', file, errorCount);
-    }
+    },
+    disableDragAndDrop: false
 };
