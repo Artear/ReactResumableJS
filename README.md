@@ -28,6 +28,7 @@ On file added, the upload will begin.
 
 ### Options
 - uploaderID The uploader ID. Ex: "image-upload"
+- dropTargetID The dropTarget ID. Ex: "myDropTarget"
 - fileAccept content type file accept on input file Ex: 'image/*'
 - filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
 - fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
@@ -63,6 +64,7 @@ export default class ExampleForm extends React.Component {
           <p>You can add other inputs, selects or stuff right here to complete a form.</p>
           <ReactResumableJs
             uploaderID="image-upload"
+            dropTargetID="myDropTarget"
             filetypes={["jpg", "png"]}
             fileAccept="image/*"
             fileAddedMessage="Started!"
