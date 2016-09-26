@@ -10,10 +10,10 @@ On file added, the upload will begin.
 
 ### Changelog:
 - 1.1.7
-    - added uniqid to elements on filelist
-    - added option onFileRemoved
-    - added option showFileList
-    - removed message status
+    - added uniqid to elements on filelist.
+    - added option onFileRemoved.
+    - added option showFileList.
+    - removed message status.
     - updated example.
 - 1.1.6
     - minor fixed
