@@ -26,11 +26,37 @@ const ContentInside = React.createClass({
           textLabel="Uploaded files"
           previousText="Drop to upload your media:"
           disableDragAndDrop={true}
+          showFileList={false}
           onFileSuccess={(file, message) => {
             this.props.setFiles(file, message);
           }}
           onFileAdded={(file, resumable) => {
             resumable.upload();
+          }}
+          onFileRemoved={(file) => {
+            console.log('file removed', file);
+          }}
+        />
+
+        <ReactResumableJs
+          uploaderID="image-upload2"
+          dropTargetID="myDropTarget2"
+          filetypes={["jpg", "png", "mp4"]}
+          fileAccept="*/*"
+          fileAddedMessage="Started!"
+          completedMessage="Complete!"
+          service="http://localhost:3000/upload"
+          textLabel="Uploaded files"
+          previousText="Drop to upload your media:"
+          disableDragAndDrop={true}
+          onFileSuccess={(file, message) => {
+            this.props.setFiles(file, message);
+          }}
+          onFileAdded={(file, resumable) => {
+            resumable.upload();
+          }}
+          onFileRemoved={(file) => {
+            console.log('file removed', file);
           }}
         />
       </fieldset>

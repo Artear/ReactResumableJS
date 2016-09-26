@@ -105,6 +105,7 @@ export default class ReactResumableJs extends React.Component {
             fileList: {files: currentFileList}
         });
 
+        this.props.onFileRemoved(file);
         this.resumable.removeFile(file);
     };
 
@@ -112,6 +113,8 @@ export default class ReactResumableJs extends React.Component {
 
         let markup = this.state.fileList.files.map((file, index) => {
 
+
+            let uniqID = this.props.uploaderID + index;
             let originFile = file.file;
             let fileReader = new FileReader();
             fileReader.readAsDataURL(originFile);
@@ -127,20 +130,25 @@ export default class ReactResumableJs extends React.Component {
                     media = '<label class="document">' + originFile.name + '</label>';
                 }
 
-                document.querySelector('#media_' + index).innerHTML = media;
+                document.querySelector('#media_' + uniqID).innerHTML = media;
             };
 
-            return <li className="thumbnail" key={index}>
-                       <label id={"media_" + index}/>
+            return <li className="thumbnail" key={uniqID}>
+                       <label id={"media_" + uniqID}/>
                        <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
                    </li>;
 
         });
 
-        return <ul>{markup}</ul>;
+        return <ul id={"filelist-" + this.props.uploaderID}>{markup}</ul>;
     };
 
     render() {
+
+        let fileList = "";
+        if(this.props.showFileList) {
+            fileList = <div className="resumable-list" >{this.createFileList()}</div>;
+        }
 
         return (
             <div id={this.props.dropTargetID}>
@@ -156,12 +164,12 @@ export default class ReactResumableJs extends React.Component {
                     capture="camera"
                     multiple
                 />
-                <div className="uploader-item-status">{this.messageStatus}</div>
+
                 <div className="progress" style={{display: this.state.progressBar == 0 ? "none" : "block"}}>
                     <div className="progress-bar" style={{width: this.state.progressBar + '%'}}></div>
                 </div>
 
-                <div className="resumable-list" >{this.createFileList()}</div>
+                {fileList}
             </div>
         );
     }
@@ -178,8 +186,10 @@ ReactResumableJs.propTypes = {
     textLabel: React.PropTypes.string,
     previousText: React.PropTypes.string,
     disableDragAndDrop: React.PropTypes.bool,
+    showFileList: React.PropTypes.bool,
     onFileSuccess: React.PropTypes.func,
     onFileAdded: React.PropTypes.func,
+    onFileRemoved: React.PropTypes.func,
     onUploadErrorCallback: React.PropTypes.func
 };
 
@@ -188,8 +198,12 @@ ReactResumableJs.defaultProps = {
     dropTargetID: 'dropTarget',
     filetypes: [],
     fileAccept: '*',
+    showFileList: true,
     onUploadErrorCallback: (file, errorCount) => {
         console.log('error', file, errorCount);
+    },
+    onFileRemoved: function (file) {
+      return file;
     },
     disableDragAndDrop: false
 };

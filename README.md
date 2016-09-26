@@ -9,6 +9,12 @@ Creates an uploader component in React, to use with [Resumable JS.](http://www.r
 On file added, the upload will begin.
 
 ### Changelog:
+- 1.1.7
+    - added uniqid to elements on filelist
+    - added option onFileRemoved
+    - added option showFileList
+    - removed message status
+    - updated example.
 - 1.1.6
     - minor fixed
 - 1.1.5
@@ -41,8 +47,10 @@ On file added, the upload will begin.
 - textLabel The label of the upload. Ex: 'What photo do you want to add?'
 - previousText A Text that will be displayed before the component. Optional.
 - disableDragAndDrop True to disable Drag and Drop. Enable by default.
+- showFileList Show or hide the filelist of uploaded files. accept boolean value
 - onUploadErrorCallback Function to call on Upload error. @returns file and message
 - onFileAddedError Function to call on File Added error. @returns file and errorCount
+- onFileRemoved Function to call on File Removed. @return file object
 - headerObject Optional, if you need to add a headers object.
 - onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
 
