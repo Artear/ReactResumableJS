@@ -1,0 +1,25 @@
+### Changelog:
+- 1.1.9
+    - Uploader file input is now contained on a Label for easy styling (when you need to hide file input).
+- 1.1.7
+    - added uniqid to elements on filelist.
+    - added option onFileRemoved.
+    - added option showFileList.
+    - removed message status.
+    - updated example.
+- 1.1.6
+    - minor fixed
+- 1.1.5
+    - added custom dropTargetId
+- 1.1.4
+    - added support to video and others in preview list
+    - added npm run demo command
+- 1.1.3
+    - fixed example
+- 1.1.2
+    - changed unique identifier
+    - changed option onFileSuccess, now return file uploaded and server message
+- 1.1.0
+    - Removed property options
+    - Now all options are properties ( see the example )
+    - Refactor: functions to arrow functions

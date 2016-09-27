@@ -154,16 +154,17 @@ export default class ReactResumableJs extends React.Component {
             <div id={this.props.dropTargetID}>
                 <p>{this.props.previousText || ''}</p>
 
+                <label class='btn file-upload'>{this.props.textLabel || 'Browse'}
                 <input
                     type="file"
                     id={this.props.uploaderID}
                     className='btn'
                     name={this.props.uploaderID + '-upload'}
-                    label={this.props.textLabel || ''}
                     accept={this.props.fileAccept || '*'}
                     capture="camera"
                     multiple
                 />
+                </label>
 
                 <div className="progress" style={{display: this.state.progressBar == 0 ? "none" : "block"}}>
                     <div className="progress-bar" style={{width: this.state.progressBar + '%'}}></div>
