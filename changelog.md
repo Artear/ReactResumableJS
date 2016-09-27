@@ -1,5 +1,5 @@
 ### Changelog:
-- 1.1.9
+- 1.1.10
     - Uploader file input is now contained on a Label for easy styling (when you need to hide file input).
 - 1.1.7
     - added uniqid to elements on filelist.

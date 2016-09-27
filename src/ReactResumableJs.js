@@ -154,7 +154,7 @@ export default class ReactResumableJs extends React.Component {
             <div id={this.props.dropTargetID}>
                 <p>{this.props.previousText || ''}</p>
 
-                <label class='btn file-upload'>{this.props.textLabel || 'Browse'}
+                <label className='btn file-upload'>{this.props.textLabel || 'Browse'}
                 <input
                     type="file"
                     id={this.props.uploaderID}
