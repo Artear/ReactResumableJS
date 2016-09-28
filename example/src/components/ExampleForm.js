@@ -42,6 +42,7 @@ const ContentInside = React.createClass({
           uploaderID="image-upload2"
           dropTargetID="myDropTarget2"
           filetypes={["jpg", "png", "mp4"]}
+          maxFileSize={5120000}
           fileAccept="*/*"
           fileAddedMessage="Started!"
           completedMessage="Complete!"
@@ -57,6 +58,10 @@ const ContentInside = React.createClass({
           }}
           onFileRemoved={(file) => {
             console.log('file removed', file);
+          }}
+          onMaxFileSizeErrorCallback={(file,errorCount) => {
+            console.log('Error! Max file size reached: ', file);
+            console.log('errorCount: ',errorCount);
           }}
         />
       </fieldset>

@@ -1,4 +1,7 @@
 ### Changelog:
+- 1.1.11
+    - Added MaxFileSize value for size validation (parameter and callback)
+    - Added "disabled" param for the file input
 - 1.1.10
     - Uploader file input is now contained on a Label for easy styling (when you need to hide file input).
 - 1.1.7

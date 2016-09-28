@@ -29,9 +29,15 @@ export default class ReactResumableJs extends React.Component {
             target: this.props.service,
             query: this.props.query || {},
             fileType: this.props.filetypes,
+            maxFileSize: this.props.maxFileSize,
             fileTypeErrorCallback: (file, errorCount) => {
                 if (typeof  this.props.onFileAddedError === "function") {
                     this.props.onFileAddedError(file, errorCount);
+                }
+            },
+            maxFileSizeErrorCallback: (file, errorCount) => {
+                if (typeof  this.props.onMaxFileSizeErrorCallback === "function") {
+                    this.props.onMaxFileSizeErrorCallback(file, errorCount);
                 }
             },
             testMethod: this.props.testMethod || 'post',
@@ -163,6 +169,7 @@ export default class ReactResumableJs extends React.Component {
                     accept={this.props.fileAccept || '*'}
                     capture="camera"
                     multiple
+                    disabled={this.props.disableInput || false}
                 />
                 </label>
 
@@ -180,6 +187,7 @@ ReactResumableJs.propTypes = {
     uploaderID: React.PropTypes.string,
     dropTargetID: React.PropTypes.string,
     filetypes: React.PropTypes.array,
+    maxFileSize: React.PropTypes.number,
     fileAccept: React.PropTypes.string,
     fileAddedMessage: React.PropTypes.string,
     completedMessage: React.PropTypes.string,
@@ -199,6 +207,7 @@ ReactResumableJs.defaultProps = {
     dropTargetID: 'dropTarget',
     filetypes: [],
     fileAccept: '*',
+    maxFileSize: 10240000,
     showFileList: true,
     onUploadErrorCallback: (file, errorCount) => {
         console.log('error', file, errorCount);
