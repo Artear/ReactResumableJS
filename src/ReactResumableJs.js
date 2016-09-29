@@ -167,7 +167,6 @@ export default class ReactResumableJs extends React.Component {
                     className='btn'
                     name={this.props.uploaderID + '-upload'}
                     accept={this.props.fileAccept || '*'}
-                    capture="camera"
                     multiple
                     disabled={this.props.disableInput || false}
                 />

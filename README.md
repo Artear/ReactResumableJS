@@ -19,6 +19,8 @@ On file added, the upload will begin.
 - dropTargetID The dropTarget ID. Ex: "myDropTarget"
 - fileAccept content type file accept on input file Ex: 'image/*'
 - filetypes The allowed files extensions to upload. Ex: "['jpg', 'png']"
+- maxFileSize The allowed file size for upload. Is expressed in bytes. Default is: 10240000 (10mb).
+- maxFileSizeErrorCallback Usefull to use with the above param, and take the exception for use as you want.
 - fileAddedMessage The message to print when file is added. Optional. Ex: 'Starting....'
 - completedMessage The message to print when file is completely uploaded. Optional. Ex: 'Completed!'
 - service The service that will receive the file. Ex: 'http://www.someurl.com/myservice/image.json'
@@ -31,6 +33,7 @@ On file added, the upload will begin.
 - onFileRemoved Function to call on File Removed. @return file object
 - headerObject Optional, if you need to add a headers object.
 - onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
+- disableInput Boolean to disable or enable input file. Send true to disable, false otherwise.
 
 ### Folders
 - build: last deploy build
