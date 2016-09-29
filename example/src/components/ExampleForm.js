@@ -39,6 +39,7 @@ const ContentInside = React.createClass({
         />
 
         <ReactResumableJs
+          disableInput={true}
           uploaderID="image-upload2"
           dropTargetID="myDropTarget2"
           filetypes={["jpg", "png", "mp4"]}

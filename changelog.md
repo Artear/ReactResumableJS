@@ -1,4 +1,6 @@
 ### Changelog:
+- 1.1.13
+    - added class disabled on label
 - 1.1.12
     - removed "capture", cause some cellphones takes this, to open the cammera, instead open file browse.
 - 1.1.11
