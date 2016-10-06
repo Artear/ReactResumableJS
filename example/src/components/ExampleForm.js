@@ -36,10 +36,10 @@ const ContentInside = React.createClass({
           onFileRemoved={(file) => {
             console.log('file removed', file);
           }}
+          maxFiles={1}
         />
 
         <ReactResumableJs
-          disableInput={true}
           uploaderID="image-upload2"
           dropTargetID="myDropTarget2"
           filetypes={["jpg", "png", "mp4"]}
@@ -92,7 +92,7 @@ export default class ExampleForm extends React.Component {
     });
   };
 
-  submit = (data) => {
+  submit = () => {
     console.log('Files: ', this.state.files);
   };
 

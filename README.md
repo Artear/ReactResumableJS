@@ -34,6 +34,7 @@ On file added, the upload will begin.
 - headerObject Optional, if you need to add a headers object.
 - onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
 - disableInput Boolean to disable or enable input file. Send true to disable, false otherwise.
+- maxFiles Indicates how many files can be uploaded in a single session. Valid values are any positive integer and undefined for no limit. (Default: undefined)
 
 ### Folders
 - build: last deploy build
@@ -72,6 +73,7 @@ export default class ExampleForm extends React.Component {
             onFileAdded={(file, resumable) => {
               resumable.upload();
             }}
+            maxFiles={1}
           />
         </fieldset>
       );

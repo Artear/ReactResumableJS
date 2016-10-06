@@ -29,6 +29,7 @@ export default class ReactResumableJs extends React.Component {
             target: this.props.service,
             query: this.props.query || {},
             fileType: this.props.filetypes,
+            maxFiles: this.props.maxFiles,
             maxFileSize: this.props.maxFileSize,
             fileTypeErrorCallback: (file, errorCount) => {
                 if (typeof  this.props.onFileAddedError === "function") {
@@ -167,7 +168,6 @@ export default class ReactResumableJs extends React.Component {
                     className='btn'
                     name={this.props.uploaderID + '-upload'}
                     accept={this.props.fileAccept || '*'}
-                    multiple
                     disabled={this.props.disableInput || false}
                 />
                 </label>
@@ -202,6 +202,7 @@ ReactResumableJs.propTypes = {
 };
 
 ReactResumableJs.defaultProps = {
+    maxFiles: undefined,
     uploaderID: 'default-resumable-uploader',
     dropTargetID: 'dropTarget',
     filetypes: [],
