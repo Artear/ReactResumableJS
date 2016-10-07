@@ -43,7 +43,11 @@ export default class ReactResumableJs extends React.Component {
             },
             testMethod: this.props.testMethod || 'post',
             testChunks: this.props.testChunks || false,
-            headers: this.props.headerObject || {}
+            headers: this.props.headerObject || {},
+            chunkSize: this.props.chunkSize,
+            simultaneousUploads: this.props.simultaneousUploads,
+            fileParameterName: this.props.fileParameterName,
+            generateUniqueIdentifier: this.props.generateUniqueIdentifier
         });
 
         ResumableField.assignBrowse(document.querySelector('#' + this.props.uploaderID));
@@ -65,19 +69,26 @@ export default class ReactResumableJs extends React.Component {
             }
         });
 
-        ResumableField.on('fileSuccess', (file, message) => {
+        ResumableField.on('fileSuccess', (file, fileServer) => {
+
+            if(this.props.fileNameServer) {
+                let objectServer = JSON.parse(fileServer);
+                file.fileName =  objectServer[this.props.fileNameServer];
+            } else {
+                file.fileName = fileServer;
+            }
 
             let currentFiles = this.state.fileList.files;
             currentFiles.push(file);
+
             this.setState({
                 fileList: {files: currentFiles},
-                messageStatus: this.props.completedMessage + file.fileName || message
+                messageStatus: this.props.completedMessage + file.fileName || fileServer
+            },() => {
+                if (typeof this.props.onFileSuccess === "function") {
+                    this.props.onFileSuccess(file, fileServer);
+                }
             });
-
-            if (typeof this.props.onFileSuccess === "function") {
-                this.props.onFileSuccess(file, message);
-            }
-
         });
 
         ResumableField.on('progress', () => {
@@ -96,7 +107,7 @@ export default class ReactResumableJs extends React.Component {
 
         });
 
-        ResumableField.on('fileError', (file, message) => {
+        ResumableField.on('fileError', (file, fileServer) => {
             this.props.onUploadErrorCallback(file, errorCount);
         });
 
@@ -120,34 +131,46 @@ export default class ReactResumableJs extends React.Component {
 
         let markup = this.state.fileList.files.map((file, index) => {
 
-
-            let uniqID = this.props.uploaderID + index;
+            let uniqID = this.props.uploaderID + '-' +index;
             let originFile = file.file;
-            let fileReader = new FileReader();
-            fileReader.readAsDataURL(originFile);
-            fileReader.onload = (event) => {
+            let media = '';
 
-                let media = '';
-                if (file.file.type.indexOf('video') > -1) {
-                    media = '<label class="video">' + originFile.name + '</label>';
-                }
-                else if (file.file.type.indexOf('image') > -1) {
-                    media = '<img class="image" width="80" src="' + event.target.result + '">';
-                } else {
-                    media = '<label class="document">' + originFile.name + '</label>';
-                }
+            if (file.file.type.indexOf('video') > -1) {
+                media = <label className="video">{originFile.name}</label>;
+                return <li className="thumbnail" key={uniqID}>
+                    <label id={"media_" + uniqID}>{media}</label>
+                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                </li>;
+            }
+            else if (file.file.type.indexOf('image') > -1) if (this.props.tmpDir != "") {
+                let src = this.props.tmpDir + file.fileName;
+                media = <img className="image" width="80" src={src}/>;
+                return <li className="thumbnail" key={uniqID}>
+                    <label id={"media_" + uniqID}>{media}</label>
+                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                </li>;
 
-                document.querySelector('#media_' + uniqID).innerHTML = media;
-            };
-
-            return <li className="thumbnail" key={uniqID}>
-                       <label id={"media_" + uniqID}/>
-                       <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
-                   </li>;
-
+            } else {
+                let fileReader = new FileReader();
+                fileReader.readAsDataURL(originFile);
+                fileReader.onload = (event) => {
+                    media = '<img class="image" width="80" src="'+event.target.result+'"/>';
+                    document.querySelector("#media_" + uniqID).innerHTML= media;
+                };
+                return <li className="thumbnail" key={uniqID}>
+                    <label id={"media_" + uniqID}/>
+                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                </li>;
+            } else {
+                media = <label className="document">{originFile.name}</label>;
+                return <li className="thumbnail" key={uniqID}>
+                    <label id={"media_" + uniqID}>{media}</label>
+                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                </li>;
+            }
         });
 
-        return <ul id={"filelist-" + this.props.uploaderID}>{markup}</ul>;
+        return <ul id={"items-" + this.props.uploaderID}>{markup}</ul>;
     };
 
     render() {
@@ -215,5 +238,11 @@ ReactResumableJs.defaultProps = {
     onFileRemoved: function (file) {
       return file;
     },
-    disableDragAndDrop: false
+    disableDragAndDrop: false,
+    fileNameServer: "",
+    tmpDir: "",
+    chunkSize: 1*1024*1024,
+    simultaneousUploads: 1,
+    fileParameterName: 'file',
+    generateUniqueIdentifier: null
 };

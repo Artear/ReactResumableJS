@@ -35,6 +35,12 @@ On file added, the upload will begin.
 - onFileSuccess Method to call when file is upload. Usually a method to set the filename that was uploaded by the component.
 - disableInput Boolean to disable or enable input file. Send true to disable, false otherwise.
 - maxFiles Indicates how many files can be uploaded in a single session. Valid values are any positive integer and undefined for no limit. (Default: undefined)
+- fileNameServer Indicate the fileNameServer Object if the server return an object. Ex {file:"image.jpg"}, so the fileNameServer is "file"
+- tmpDir path to render the preview image on the filelist, if the tmpDir is not set the preview will be a base64encode image ( low performance ). We recommend set the tmpDir
+- chunkSize The size in bytes of each uploaded chunk of data (Default: 1*1024*1024)
+- simultaneousUploads Number of simultaneous uploads (Default: 1)
+- fileParameterName The name of the multipart POST parameter to use for the file chunk (Default: file)
+- generateUniqueIdentifier Override the function that generates unique identifiers for each file. (Default: null)
 
 ### Folders
 - build: last deploy build

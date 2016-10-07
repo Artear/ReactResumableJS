@@ -1,4 +1,14 @@
 ### Changelog:
+- 1.1.14
+    - fixed low performance with the preview image in the file list.
+    - added new options.
+        - fileNameServer
+        - tmpDir
+        - chunkSize
+        - simultaneousUploads
+        - fileParameterName
+        - generateUniqueIdentifier
+    - updated demo.
 - 1.1.13
     - added class disabled on label
 - 1.1.12

@@ -15,14 +15,14 @@ module.exports = resumable = function(temporaryFolder){
 
   var cleanIdentifier = function(identifier){
     return identifier.replace(/^0-9A-Za-z_-/img, '');
-  }
+  };
 
   var getChunkFilename = function(chunkNumber, identifier){
     // Clean up the identifier
     identifier = cleanIdentifier(identifier);
     // What would the file name be?
-    return path.join($.temporaryFolder, './resumable-'+identifier+'.'+chunkNumber);
-  }
+    return path.join($.temporaryFolder, './'+identifier+'.'+chunkNumber);
+  };
 
   var validateRequest = function(chunkNumber, chunkSize, totalSize, identifier, filename, fileSize){
     // Clean up the identifier
@@ -114,12 +114,17 @@ module.exports = resumable = function(temporaryFolder){
         // Do we have all the chunks?
         var currentTestChunk = 1;
         var numberOfChunks = Math.max(Math.floor(totalSize/(chunkSize*1.0)), 1);
+
         var testChunkExists = function(){
               fs.exists(getChunkFilename(currentTestChunk, identifier), function(exists){
                 if(exists){
                   currentTestChunk++;
                   if(currentTestChunk>numberOfChunks) {
-                    callback('done', filename, original_filename, identifier);
+                    var hash = Math.floor(Date.now() / 1000);
+                    var finalName =  hash + '-' + filename;
+                    fs.rename(chunkFilename, $.temporaryFolder + finalName,function () {
+                      callback('done', finalName, hash);
+                    });
                   } else {
                     // Recursion
                     testChunkExists();
@@ -128,13 +133,13 @@ module.exports = resumable = function(temporaryFolder){
                   callback('partly_done', filename, original_filename, identifier);
                 }
               });
-            }
+            };
         testChunkExists();
       });
     } else {
           callback(validation, filename, original_filename, identifier);
     }
-  }
+  };
 
 
   // Pipe chunks directly in to an existsing WritableStream

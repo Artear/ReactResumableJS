@@ -18,32 +18,8 @@ const ContentInside = React.createClass({
         <ReactResumableJs
           uploaderID="image-upload"
           dropTargetID="myDropTarget"
-          filetypes={["jpg", "png", "mp4"]}
-          fileAccept="*/*"
-          fileAddedMessage="Started!"
-          completedMessage="Complete!"
-          service="http://localhost:3000/upload"
-          textLabel="Uploaded files"
-          previousText="Drop to upload your media:"
-          disableDragAndDrop={true}
-          showFileList={false}
-          onFileSuccess={(file, message) => {
-            this.props.setFiles(file, message);
-          }}
-          onFileAdded={(file, resumable) => {
-            resumable.upload();
-          }}
-          onFileRemoved={(file) => {
-            console.log('file removed', file);
-          }}
-          maxFiles={1}
-        />
-
-        <ReactResumableJs
-          uploaderID="image-upload2"
-          dropTargetID="myDropTarget2"
-          filetypes={["jpg", "png", "mp4"]}
-          maxFileSize={5120000}
+          filetypes={["jpg", "JPG", "png", "PNG", "mp4", "MP4"]}
+          maxFileSize={512000000}
           fileAccept="*/*"
           fileAddedMessage="Started!"
           completedMessage="Complete!"
@@ -62,8 +38,10 @@ const ContentInside = React.createClass({
           }}
           onMaxFileSizeErrorCallback={(file,errorCount) => {
             console.log('Error! Max file size reached: ', file);
-            console.log('errorCount: ',errorCount);
+            console.log('errorCount: ', errorCount);
           }}
+          fileNameServer="file"
+          tmpDir="http://localhost:3000/tmp/"
         />
       </fieldset>
     );
