@@ -41,6 +41,7 @@ On file added, the upload will begin.
 - simultaneousUploads Number of simultaneous uploads (Default: 1)
 - fileParameterName The name of the multipart POST parameter to use for the file chunk (Default: file)
 - generateUniqueIdentifier Override the function that generates unique identifiers for each file. (Default: null)
+- maxFilesErrorCallback A function which displays the please upload n file(s) at a time message. (Default: displays an alert box with the message Please n one file(s) at a time.)
 
 ### Folders
 - build: last deploy build

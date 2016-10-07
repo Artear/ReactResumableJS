@@ -42,6 +42,7 @@ const ContentInside = React.createClass({
           }}
           fileNameServer="file"
           tmpDir="http://localhost:3000/tmp/"
+          maxFiles={3}
         />
       </fieldset>
     );

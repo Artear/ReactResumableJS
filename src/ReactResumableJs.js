@@ -32,7 +32,7 @@ export default class ReactResumableJs extends React.Component {
             maxFiles: this.props.maxFiles,
             maxFileSize: this.props.maxFileSize,
             fileTypeErrorCallback: (file, errorCount) => {
-                if (typeof  this.props.onFileAddedError === "function") {
+                if (typeof this.props.onFileAddedError === "function") {
                     this.props.onFileAddedError(file, errorCount);
                 }
             },
@@ -47,8 +47,13 @@ export default class ReactResumableJs extends React.Component {
             chunkSize: this.props.chunkSize,
             simultaneousUploads: this.props.simultaneousUploads,
             fileParameterName: this.props.fileParameterName,
-            generateUniqueIdentifier: this.props.generateUniqueIdentifier
+            generateUniqueIdentifier: this.props.generateUniqueIdentifier,
+
         });
+
+        if (typeof this.props.maxFilesErrorCallback === "function") {
+            ResumableField.opts.maxFilesErrorCallback = this.props.maxFilesErrorCallback;
+        }
 
         ResumableField.assignBrowse(document.querySelector('#' + this.props.uploaderID));
 
@@ -244,5 +249,6 @@ ReactResumableJs.defaultProps = {
     chunkSize: 1*1024*1024,
     simultaneousUploads: 1,
     fileParameterName: 'file',
-    generateUniqueIdentifier: null
+    generateUniqueIdentifier: null,
+    maxFilesErrorCallback: null
 };
