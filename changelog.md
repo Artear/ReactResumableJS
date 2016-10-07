@@ -1,5 +1,5 @@
 ### Changelog:
-- 1.1.14
+- 1.1.15
     - fixed low performance with the preview image in the file list.
     - added new options.
         - fileNameServer
