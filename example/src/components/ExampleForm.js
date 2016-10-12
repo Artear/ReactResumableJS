@@ -5,6 +5,7 @@ import ReactResumableJs from '../../../src/ReactResumableJs';
 
 const ContentInside = React.createClass({
   mixins: [FRC.ParentContextMixin],
+  inputDisable: false,
 
   propTypes: {
     children: React.PropTypes.node
@@ -24,25 +25,34 @@ const ContentInside = React.createClass({
           fileAddedMessage="Started!"
           completedMessage="Complete!"
           service="http://localhost:3000/upload"
-          textLabel="Uploaded files"
-          previousText="Drop to upload your media:"
+
           disableDragAndDrop={true}
           onFileSuccess={(file, message) => {
             this.props.setFiles(file, message);
           }}
           onFileAdded={(file, resumable) => {
+            this.inputDisable = true;
             resumable.upload();
           }}
           onFileRemoved={(file) => {
+            this.inputDisable = false;
+            this.forceUpdate();
             console.log('file removed', file);
           }}
-          onMaxFileSizeErrorCallback={(file,errorCount) => {
+          onMaxFileSizeErrorCallback={(file, errorCount) => {
             console.log('Error! Max file size reached: ', file);
             console.log('errorCount: ', errorCount);
           }}
           fileNameServer="file"
           tmpDir="http://localhost:3000/tmp/"
-          maxFiles={3}
+          maxFiles={1}
+          onFileAddedError={(file, errorCount) => {
+            console.log('error file added', file, errorCount);
+          }}
+          maxFilesErrorCallback={(file, errorCount) => {
+            console.log('maxFiles', file, errorCount);
+          }}
+          disableInput={this.inputDisable}
         />
       </fieldset>
     );

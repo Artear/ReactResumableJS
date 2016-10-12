@@ -185,11 +185,20 @@ export default class ReactResumableJs extends React.Component {
             fileList = <div className="resumable-list" >{this.createFileList()}</div>;
         }
 
+        let previousText = "";
+        if(this.props.previousText) {
+            previousText = <p>{this.props.previousText}</p>
+        }
+
+        let textLabel = "";
+        if(this.props.textLabel) {
+            textLabel = this.props.previousText;
+        }
+
         return (
             <div id={this.props.dropTargetID}>
-                <p>{this.props.previousText || ''}</p>
-
-                <label className={this.props.disableInput ? 'btn file-upload disabled' : 'btn file-upload'}>{this.props.textLabel || 'Browse'}
+                {previousText}
+                <label className={this.props.disableInput ? 'btn file-upload disabled' : 'btn file-upload'}>{textLabel}
                 <input
                     type="file"
                     id={this.props.uploaderID}
@@ -199,11 +208,9 @@ export default class ReactResumableJs extends React.Component {
                     disabled={this.props.disableInput || false}
                 />
                 </label>
-
                 <div className="progress" style={{display: this.state.progressBar == 0 ? "none" : "block"}}>
                     <div className="progress-bar" style={{width: this.state.progressBar + '%'}}></div>
                 </div>
-
                 {fileList}
             </div>
         );

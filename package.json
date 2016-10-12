@@ -1,6 +1,6 @@
 {
   "name": "react-resumable-js",
-  "version": "1.1.17",
+  "version": "1.1.18",
   "description": "Upload component in React for using with Resumable JS",
   "main": "./build/react-resumable-js",
   "directories": {
