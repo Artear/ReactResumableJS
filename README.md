@@ -42,6 +42,9 @@ On file added, the upload will begin.
 - fileParameterName The name of the multipart POST parameter to use for the file chunk (Default: file)
 - generateUniqueIdentifier Override the function that generates unique identifiers for each file. (Default: null)
 - maxFilesErrorCallback A function which displays the please upload n file(s) at a time message. (Default: displays an alert box with the message Please n one file(s) at a time.)
+- startButton Boolean value to show the start button
+- pauseButton Boolean value to show the pause button
+- cancelButton Boolean value to show the cancel button
 
 ### Folders
 - build: last deploy build
@@ -81,6 +84,21 @@ export default class ExampleForm extends React.Component {
               resumable.upload();
             }}
             maxFiles={1}
+            startButton={true}
+            pauseButton={false}
+            cancelButton={false}
+            onStartUpload={() => {
+                console.log("Start upload");
+            }}
+            onCancelUpload={() => {
+                this.inputDisable = false;
+            }}
+            onPauseUpload={() =>{
+                this.inputDisable = false;
+            }}
+            onResumeUpload={() => {
+                this.inputDisable = true;
+            }}
           />
         </fieldset>
       );

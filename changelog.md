@@ -1,4 +1,12 @@
 ### Changelog:
+- 1.1.19
+    - Now you can pause, cancel or resume the upload
+    - added start button option
+    - added pause button option
+    - added cancel button option
+    - added onStartUpload callback
+    - added onPauseUpload callback
+    - added onCancelUpload callback
 - 1.1.16
     - added option maxFilesErrorCallback
 - 1.1.15

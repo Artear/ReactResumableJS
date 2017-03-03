@@ -19,7 +19,7 @@ const ContentInside = React.createClass({
         <ReactResumableJs
           uploaderID="image-upload"
           dropTargetID="myDropTarget"
-          filetypes={["jpg", "JPG", "png", "PNG", "mp4", "MP4"]}
+          filetypes={["jpg", "JPG", "png", "PNG", "mp4", "MP4", "mkv"]}
           maxFileSize={512000000}
           fileAccept="*/*"
           fileAddedMessage="Started!"
@@ -29,10 +29,11 @@ const ContentInside = React.createClass({
           disableDragAndDrop={true}
           onFileSuccess={(file, message) => {
             this.props.setFiles(file, message);
+            this.inputDisable = false;
           }}
           onFileAdded={(file, resumable) => {
             this.inputDisable = true;
-            resumable.upload();
+            //resumable.upload();
           }}
           onFileRemoved={(file) => {
             this.inputDisable = false;
@@ -53,6 +54,22 @@ const ContentInside = React.createClass({
             console.log('maxFiles', file, errorCount);
           }}
           disableInput={this.inputDisable}
+          startButton={true}
+          pauseButton={false}
+          cancelButton={false}
+          onStartUpload={() => {
+
+          }}
+          onCancelUpload={() => {
+            this.inputDisable = false;
+          }}
+          onPauseUpload={() =>{
+            this.inputDisable = false;
+          }}
+          onResumeUpload={() => {
+            this.inputDisable = true;
+          }}
+
         />
       </fieldset>
     );

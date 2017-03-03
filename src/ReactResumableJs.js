@@ -17,7 +17,9 @@ export default class ReactResumableJs extends React.Component {
         this.state = {
             progressBar: 0,
             messageStatus: '',
-            fileList: {files: []}
+            fileList: {files: []},
+            isPaused: false,
+            isUploading: false
         };
 
         this.resumable = null;
@@ -76,9 +78,9 @@ export default class ReactResumableJs extends React.Component {
 
         ResumableField.on('fileSuccess', (file, fileServer) => {
 
-            if(this.props.fileNameServer) {
+            if (this.props.fileNameServer) {
                 let objectServer = JSON.parse(fileServer);
-                file.fileName =  objectServer[this.props.fileNameServer];
+                file.fileName = objectServer[this.props.fileNameServer];
             } else {
                 file.fileName = fileServer;
             }
@@ -89,7 +91,7 @@ export default class ReactResumableJs extends React.Component {
             this.setState({
                 fileList: {files: currentFiles},
                 messageStatus: this.props.completedMessage + file.fileName || fileServer
-            },() => {
+            }, () => {
                 if (typeof this.props.onFileSuccess === "function") {
                     this.props.onFileSuccess(file, fileServer);
                 }
@@ -97,6 +99,12 @@ export default class ReactResumableJs extends React.Component {
         });
 
         ResumableField.on('progress', () => {
+
+
+            this.setState({
+                isUploading: ResumableField.isUploading()
+            });
+
             if ((ResumableField.progress() * 100) < 100) {
                 this.setState({
                     messageStatus: parseInt(ResumableField.progress() * 100, 10) + '%',
@@ -136,7 +144,7 @@ export default class ReactResumableJs extends React.Component {
 
         let markup = this.state.fileList.files.map((file, index) => {
 
-            let uniqID = this.props.uploaderID + '-' +index;
+            let uniqID = this.props.uploaderID + '-' + index;
             let originFile = file.file;
             let media = '';
 
@@ -159,8 +167,8 @@ export default class ReactResumableJs extends React.Component {
                 let fileReader = new FileReader();
                 fileReader.readAsDataURL(originFile);
                 fileReader.onload = (event) => {
-                    media = '<img class="image" width="80" src="'+event.target.result+'"/>';
-                    document.querySelector("#media_" + uniqID).innerHTML= media;
+                    media = '<img class="image" width="80" src="' + event.target.result + '"/>';
+                    document.querySelector("#media_" + uniqID).innerHTML = media;
                 };
                 return <li className="thumbnail" key={uniqID}>
                     <label id={"media_" + uniqID}/>
@@ -178,40 +186,107 @@ export default class ReactResumableJs extends React.Component {
         return <ul id={"items-" + this.props.uploaderID}>{markup}</ul>;
     };
 
+    cancelUpload = () => {
+        this.resumable.cancel();
+
+        this.setState({
+            fileList: {files: []}
+        });
+
+        this.props.onCancelUpload();
+    };
+
+    pauseUpload = () => {
+        if (!this.state.isPaused) {
+
+            console.log("Pause");
+
+            this.resumable.pause();
+            this.setState({
+                isPaused: true
+            });
+            this.props.onPauseUpload();
+        } else {
+
+            console.log("Resume");
+            this.resumable.upload();
+            this.setState({
+                isPaused: false
+            });
+            this.props.onResumeUpload();
+        }
+    };
+
+    startUpload = () => {
+        this.resumable.upload();
+        this.setState({
+            isPaused: false
+        });
+        this.props.onStartUpload();
+    };
+
     render() {
 
         let fileList = "";
-        if(this.props.showFileList) {
-            fileList = <div className="resumable-list" >{this.createFileList()}</div>;
+        if (this.props.showFileList) {
+            fileList = <div className="resumable-list">{this.createFileList()}</div>;
         }
 
         let previousText = "";
-        if(this.props.previousText) {
+        if (this.props.previousText) {
             previousText = <p>{this.props.previousText}</p>
         }
 
         let textLabel = "";
-        if(this.props.textLabel) {
+        if (this.props.textLabel) {
             textLabel = this.props.previousText;
+        }
+
+        let startButton = "";
+        if (this.props.startButton) {
+            startButton = <label>
+                <button disabled={this.state.isUploading} className="btn start" onClick={this.startUpload}>Upload
+                </button>
+            </label>;
+        }
+
+        let cancelButton = "";
+        if (this.props.cancelButton) {
+            cancelButton = <label>
+                <button disabled={!this.state.isUploading} className="btn cancel" onClick={this.cancelUpload}>Cancel
+                </button>
+            </label>;
+        }
+
+        let pauseButton = "";
+        if (this.props.pauseButton) {
+            pauseButton = <label>
+                <button disabled={!this.state.isUploading} className="btn pause" onClick={this.pauseUpload}>Pause
+                </button>
+            </label>;
         }
 
         return (
             <div id={this.props.dropTargetID}>
                 {previousText}
                 <label className={this.props.disableInput ? 'btn file-upload disabled' : 'btn file-upload'}>{textLabel}
-                <input
-                    type="file"
-                    id={this.props.uploaderID}
-                    className='btn'
-                    name={this.props.uploaderID + '-upload'}
-                    accept={this.props.fileAccept || '*'}
-                    disabled={this.props.disableInput || false}
-                />
+                    <input
+                        type="file"
+                        id={this.props.uploaderID}
+                        className='btn'
+                        name={this.props.uploaderID + '-upload'}
+                        accept={this.props.fileAccept || '*'}
+                        disabled={this.props.disableInput || false}
+                    />
                 </label>
                 <div className="progress" style={{display: this.state.progressBar == 0 ? "none" : "block"}}>
                     <div className="progress-bar" style={{width: this.state.progressBar + '%'}}></div>
                 </div>
+
                 {fileList}
+                {startButton}
+                {pauseButton}
+                {cancelButton}
             </div>
         );
     }
@@ -233,7 +308,14 @@ ReactResumableJs.propTypes = {
     onFileSuccess: React.PropTypes.func,
     onFileAdded: React.PropTypes.func,
     onFileRemoved: React.PropTypes.func,
-    onUploadErrorCallback: React.PropTypes.func
+    onUploadErrorCallback: React.PropTypes.func,
+    cancelButton: React.PropTypes.bool,
+    pauseButton: React.PropTypes.bool,
+    onCancelUpload: React.PropTypes.func,
+    onPauseUpload: React.PropTypes.func,
+    onResumeUpload: React.PropTypes.func,
+    startButton: React.PropTypes.bool,
+    onStartUpload: React.PropTypes.func
 };
 
 ReactResumableJs.defaultProps = {
@@ -248,14 +330,28 @@ ReactResumableJs.defaultProps = {
         console.log('error', file, errorCount);
     },
     onFileRemoved: function (file) {
-      return file;
+        return file;
+    },
+    onCancelUpload: function () {
+        return true;
+    },
+    onPauseUpload: function () {
+        return true;
+    },
+    onResumeUpload: function () {
+        return true;
+    },
+    onStartUpload: function () {
+        return true;
     },
     disableDragAndDrop: false,
     fileNameServer: "",
     tmpDir: "",
-    chunkSize: 1*1024*1024,
+    chunkSize: 1 * 1024 * 1024,
     simultaneousUploads: 1,
     fileParameterName: 'file',
     generateUniqueIdentifier: null,
-    maxFilesErrorCallback: null
+    maxFilesErrorCallback: null,
+    cancelButton: false,
+    pause: false
 };
