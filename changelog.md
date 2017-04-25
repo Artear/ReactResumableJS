@@ -1,4 +1,6 @@
-### Changelog:
+### Changelog:}
+- 1.1.22
+    - Remove invalid import
 - 1.1.21
     - Fix PropTypes
     - Upgrade React-dom
