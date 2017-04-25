@@ -1,4 +1,6 @@
 ### Changelog:}
+- 1.1.23
+    - Fix and improvements https://github.com/Artear/ReactResumableJS/pull/24
 - 1.1.22
     - Remove invalid import
 - 1.1.21

@@ -26,7 +26,7 @@ const ContentInside = React.createClass({
           completedMessage="Complete!"
           service="http://localhost:3000/upload"
 
-          disableDragAndDrop={true}
+          disableDragAndDrop={false}
           onFileSuccess={(file, message) => {
             this.props.setFiles(file, message);
             this.inputDisable = false;
@@ -46,7 +46,7 @@ const ContentInside = React.createClass({
           }}
           fileNameServer="file"
           tmpDir="http://localhost:3000/tmp/"
-          maxFiles={1}
+          maxFiles={10}
           onFileAddedError={(file, errorCount) => {
             console.log('error file added', file, errorCount);
           }}
