@@ -7,7 +7,6 @@
  * On file added, the upload will begin.
  */
 
-'use strict';
 import React from "react";
 import Resumablejs from "resumablejs";
 
@@ -245,29 +244,29 @@ export default class ReactResumableJs extends React.Component {
 
         let startButton = null;
         if (this.props.startButton) {
-            if (typeof this.props.startButton ==="string") startButton = <label>
-                <button disabled={this.state.isUploading} className="btn start" onClick={this.startUpload}>{this.props.startButton}
+            if (typeof this.props.startButton ==="string" || typeof this.props.startButton ==="boolean" ) startButton = <label>
+                <button disabled={this.state.isUploading} className="btn start" onClick={this.startUpload}>{this.props.startButton && "upload"}
                 </button>
             </label>;
-                else startButton =this.props.startButton
+            else startButton =this.props.startButton
         }
 
         let cancelButton = null;
         if (this.props.cancelButton) {
-            if (typeof this.props.cancelButton ===  "string")cancelButton = <label>
-                <button disabled={!this.state.isUploading} className="btn cancel" onClick={this.cancelUpload}>{this.props.cancelButton}
+            if (typeof this.props.cancelButton ===  "string" || typeof this.props.cancelButton ===  "boolean")cancelButton = <label>
+                <button disabled={!this.state.isUploading} className="btn cancel" onClick={this.cancelUpload}>{this.props.cancelButton && "cancel"}
                 </button>
             </label>;
-                else cancelButton = this.props.cancelButton
+            else cancelButton = this.props.cancelButton
         }
 
         let pauseButton = null;
         if (this.props.pauseButton) {
-            if (typeof this.props.pauseButton ===  "string") pauseButton = <label>
-                <button disabled={!this.state.isUploading} className="btn pause" onClick={this.pauseUpload}>{this.props.pauseButton}
+            if (typeof this.props.pauseButton ===  "string" || typeof this.props.pauseButton ===  "boolean") pauseButton = <label>
+                <button disabled={!this.state.isUploading} className="btn pause" onClick={this.pauseUpload}>{this.props.pauseButton && "pause"}
                 </button>
             </label>;
-                else pauseButton = this.props.pauseButton
+            else pauseButton = this.props.pauseButton
         }
 
         return (
