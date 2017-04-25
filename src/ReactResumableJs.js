@@ -60,7 +60,7 @@ export default class ReactResumableJs extends React.Component {
         ResumableField.assignBrowse(document.querySelector('#' + this.props.uploaderID));
 
         //Enable or Disable DragAnd Drop
-        if (this.props.disableDragAndDrop === true) {
+        if (this.props.disableDragAndDrop === false) {
             ResumableField.assignDrop(document.querySelector('#' + this.props.dropTargetID));
         }
 
@@ -120,7 +120,7 @@ export default class ReactResumableJs extends React.Component {
 
         });
 
-        ResumableField.on('fileError', (file, fileServer) => {
+        ResumableField.on('fileError', (file, errorCount) => {
             this.props.onUploadErrorCallback(file, errorCount);
         });
 
