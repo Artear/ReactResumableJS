@@ -1,4 +1,7 @@
 ### Changelog:
+- 1.1.20
+    - Fix https://github.com/Artear/ReactResumableJS/pull/22
+    - Fix https://github.com/Artear/ReactResumableJS/issues/21
 - 1.1.19
     - Now you can pause, cancel or resume the upload
     - added start button option

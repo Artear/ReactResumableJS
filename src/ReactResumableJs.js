@@ -127,7 +127,9 @@ export default class ReactResumableJs extends React.Component {
         this.resumable = ResumableField;
     };
 
-    removeFile = (file, index) => {
+    removeFile = (event, file, index) => {
+
+        event.preventDefault();
 
         let currentFileList = this.state.fileList.files;
         delete currentFileList[index];
@@ -152,7 +154,7 @@ export default class ReactResumableJs extends React.Component {
                 media = <label className="video">{originFile.name}</label>;
                 return <li className="thumbnail" key={uniqID}>
                     <label id={"media_" + uniqID}>{media}</label>
-                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                    <a onClick={(event) => this.removeFile(event, file, index)} href="#">[X]</a>
                 </li>;
             }
             else if (file.file.type.indexOf('image') > -1) if (this.props.tmpDir != "") {
@@ -160,7 +162,7 @@ export default class ReactResumableJs extends React.Component {
                 media = <img className="image" width="80" src={src}/>;
                 return <li className="thumbnail" key={uniqID}>
                     <label id={"media_" + uniqID}>{media}</label>
-                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                    <a onClick={(event) => this.removeFile(event, file, index)} href="#">[X]</a>
                 </li>;
 
             } else {
@@ -172,13 +174,13 @@ export default class ReactResumableJs extends React.Component {
                 };
                 return <li className="thumbnail" key={uniqID}>
                     <label id={"media_" + uniqID}/>
-                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                    <a onClick={(event) => this.removeFile(event, file, index)} href="#">[X]</a>
                 </li>;
             } else {
                 media = <label className="document">{originFile.name}</label>;
                 return <li className="thumbnail" key={uniqID}>
                     <label id={"media_" + uniqID}>{media}</label>
-                    <a onClick={() => this.removeFile(file, index)} href="#">[X]</a>
+                    <a onClick={(event) => this.removeFile(event, file, index)} href="#">[X]</a>
                 </li>;
             }
         });
