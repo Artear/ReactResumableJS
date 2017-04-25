@@ -10,7 +10,6 @@
 'use strict';
 import React from "react";
 import Resumablejs from "resumablejs";
-import PropTypes from 'prop-types';
 
 export default class ReactResumableJs extends React.Component {
     constructor(props) {
