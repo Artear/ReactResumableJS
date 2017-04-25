@@ -57,11 +57,11 @@ export default class ReactResumableJs extends React.Component {
             ResumableField.opts.maxFilesErrorCallback = this.props.maxFilesErrorCallback;
         }
 
-        ResumableField.assignBrowse(document.querySelector('#' + this.props.uploaderID));
+        ResumableField.assignBrowse(this.uploader);
 
         //Enable or Disable DragAnd Drop
         if (this.props.disableDragAndDrop === false) {
-            ResumableField.assignDrop(document.querySelector('#' + this.props.dropTargetID));
+            ResumableField.assignDrop(this.dropZone);
         }
 
         ResumableField.on('fileAdded', (file, event) => {
@@ -157,9 +157,9 @@ export default class ReactResumableJs extends React.Component {
                     <a onClick={(event) => this.removeFile(event, file, index)} href="#">[X]</a>
                 </li>;
             }
-            else if (file.file.type.indexOf('image') > -1) if (this.props.tmpDir != "") {
+            else if (file.file.type.indexOf('image') > -1) if (this.props.tmpDir !== "") {
                 let src = this.props.tmpDir + file.fileName;
-                media = <img className="image" width="80" src={src}/>;
+                media = <img className="image" width="80" src={src} alt=""/>;
                 return <li className="thumbnail" key={uniqID}>
                     <label id={"media_" + uniqID}>{media}</label>
                     <a onClick={(event) => this.removeFile(event, file, index)} href="#">[X]</a>
@@ -226,50 +226,56 @@ export default class ReactResumableJs extends React.Component {
 
     render() {
 
-        let fileList = "";
+        let fileList = null;
         if (this.props.showFileList) {
             fileList = <div className="resumable-list">{this.createFileList()}</div>;
         }
 
-        let previousText = "";
+        let previousText = null;
         if (this.props.previousText) {
-            previousText = <p>{this.props.previousText}</p>
+            if (typeof this.props.previousText ==="string") previousText = <p>{this.props.previousText}</p>
+            else previousText = this.props.previousText
         }
 
-        let textLabel = "";
+        let textLabel = null;
         if (this.props.textLabel) {
             textLabel = this.props.textLabel;
+
         }
 
-        let startButton = "";
+        let startButton = null;
         if (this.props.startButton) {
-            startButton = <label>
-                <button disabled={this.state.isUploading} className="btn start" onClick={this.startUpload}>Upload
+            if (typeof this.props.startButton ==="string") startButton = <label>
+                <button disabled={this.state.isUploading} className="btn start" onClick={this.startUpload}>{this.props.startButton}
                 </button>
             </label>;
+                else startButton =this.props.startButton
         }
 
-        let cancelButton = "";
+        let cancelButton = null;
         if (this.props.cancelButton) {
-            cancelButton = <label>
-                <button disabled={!this.state.isUploading} className="btn cancel" onClick={this.cancelUpload}>Cancel
+            if (typeof this.props.cancelButton ===  "string")cancelButton = <label>
+                <button disabled={!this.state.isUploading} className="btn cancel" onClick={this.cancelUpload}>{this.props.cancelButton}
                 </button>
             </label>;
+                else cancelButton = this.props.cancelButton
         }
 
-        let pauseButton = "";
+        let pauseButton = null;
         if (this.props.pauseButton) {
-            pauseButton = <label>
-                <button disabled={!this.state.isUploading} className="btn pause" onClick={this.pauseUpload}>Pause
+            if (typeof this.props.pauseButton ===  "string") pauseButton = <label>
+                <button disabled={!this.state.isUploading} className="btn pause" onClick={this.pauseUpload}>{this.props.pauseButton}
                 </button>
             </label>;
+                else pauseButton = this.props.pauseButton
         }
 
         return (
-            <div id={this.props.dropTargetID}>
+            <div id={this.props.dropTargetID} ref={node => this.dropZone = node}>
                 {previousText}
                 <label className={this.props.disableInput ? 'btn file-upload disabled' : 'btn file-upload'}>{textLabel}
                     <input
+                        ref={node=> this.uploader = node}
                         type="file"
                         id={this.props.uploaderID}
                         className='btn'
@@ -278,7 +284,7 @@ export default class ReactResumableJs extends React.Component {
                         disabled={this.props.disableInput || false}
                     />
                 </label>
-                <div className="progress" style={{display: this.state.progressBar == 0 ? "none" : "block"}}>
+                <div className="progress" style={{display: this.state.progressBar === 0 ? "none" : "block"}}>
                     <div className="progress-bar" style={{width: this.state.progressBar + '%'}}></div>
                 </div>
 
@@ -326,5 +332,10 @@ ReactResumableJs.defaultProps = {
     generateUniqueIdentifier: null,
     maxFilesErrorCallback: null,
     cancelButton: false,
-    pause: false
+    pause: false,
+    startButton: null,
+    pauseButton: null,
+    previousText: "",
+    headerObject : {}
+
 };
