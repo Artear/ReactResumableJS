@@ -239,7 +239,7 @@ export default class ReactResumableJs extends React.Component {
 
         let textLabel = "";
         if (this.props.textLabel) {
-            textLabel = this.props.previousText;
+            textLabel = this.props.textLabel;
         }
 
         let startButton = "";
