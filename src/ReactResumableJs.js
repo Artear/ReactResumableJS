@@ -10,6 +10,7 @@
 'use strict';
 import React from "react";
 import Resumablejs from "resumablejs";
+import PropTypes from 'prop-types';
 
 export default class ReactResumableJs extends React.Component {
     constructor(props) {
@@ -201,8 +202,6 @@ export default class ReactResumableJs extends React.Component {
     pauseUpload = () => {
         if (!this.state.isPaused) {
 
-            console.log("Pause");
-
             this.resumable.pause();
             this.setState({
                 isPaused: true
@@ -210,7 +209,6 @@ export default class ReactResumableJs extends React.Component {
             this.props.onPauseUpload();
         } else {
 
-            console.log("Resume");
             this.resumable.upload();
             this.setState({
                 isPaused: false
@@ -293,32 +291,6 @@ export default class ReactResumableJs extends React.Component {
         );
     }
 }
-
-ReactResumableJs.propTypes = {
-    uploaderID: React.PropTypes.string,
-    dropTargetID: React.PropTypes.string,
-    filetypes: React.PropTypes.array,
-    maxFileSize: React.PropTypes.number,
-    fileAccept: React.PropTypes.string,
-    fileAddedMessage: React.PropTypes.string,
-    completedMessage: React.PropTypes.string,
-    service: React.PropTypes.string,
-    textLabel: React.PropTypes.string,
-    previousText: React.PropTypes.string,
-    disableDragAndDrop: React.PropTypes.bool,
-    showFileList: React.PropTypes.bool,
-    onFileSuccess: React.PropTypes.func,
-    onFileAdded: React.PropTypes.func,
-    onFileRemoved: React.PropTypes.func,
-    onUploadErrorCallback: React.PropTypes.func,
-    cancelButton: React.PropTypes.bool,
-    pauseButton: React.PropTypes.bool,
-    onCancelUpload: React.PropTypes.func,
-    onPauseUpload: React.PropTypes.func,
-    onResumeUpload: React.PropTypes.func,
-    startButton: React.PropTypes.bool,
-    onStartUpload: React.PropTypes.func
-};
 
 ReactResumableJs.defaultProps = {
     maxFiles: undefined,

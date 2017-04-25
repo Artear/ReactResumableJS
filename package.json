@@ -1,6 +1,6 @@
 {
   "name": "react-resumable-js",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "description": "Upload component in React for using with Resumable JS",
   "main": "./build/react-resumable-js",
   "directories": {
@@ -41,8 +41,9 @@
   },
   "homepage": "https://github.com/Artear/ReactResumableJS#readme",
   "dependencies": {
+    "prop-types": "^15.5.0",
     "react": "^15.0.0",
-    "react-dom": "^15.0.0",
+    "react-dom": "^15.3.0",
     "resumablejs": "^1.0.2"
   },
   "devDependencies": {

@@ -1,4 +1,7 @@
 ### Changelog:
+- 1.1.21
+    - Fix PropTypes
+    - Upgrade React-dom
 - 1.1.20
     - Fix https://github.com/Artear/ReactResumableJS/pull/22
     - Fix https://github.com/Artear/ReactResumableJS/issues/21
