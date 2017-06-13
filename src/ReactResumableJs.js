@@ -325,7 +325,7 @@ ReactResumableJs.defaultProps = {
     disableDragAndDrop: false,
     fileNameServer: "",
     tmpDir: "",
-    chunkSize: 1 * 1024 * 1024,
+    chunkSize: 1024 * 1024,
     simultaneousUploads: 1,
     fileParameterName: 'file',
     generateUniqueIdentifier: null,
