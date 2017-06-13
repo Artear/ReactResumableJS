@@ -45,6 +45,7 @@ On file added, the upload will begin.
 - startButton Boolean value to show the start button
 - pauseButton Boolean value to show the pause button
 - cancelButton Boolean value to show the cancel button
+- forceChunkSize Boolean value to force size of a chunk. (Default: false)
 
 ### Folders
 - build: last deploy build
@@ -52,17 +53,17 @@ On file added, the upload will begin.
     - server: nodejs server to upload the files
 - src: source code
 
-### Example 
+### Example
 
 ```javascript
 export default class ExampleForm extends React.Component {
-  
+
   constructor(props) {
     super(props);
   }
 
   render() {
-  
+
       return (
         <fieldset>
           <p>You can add other inputs, selects or stuff right here to complete a form.</p>
