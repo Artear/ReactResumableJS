@@ -49,7 +49,7 @@ export default class ReactResumableJs extends React.Component {
             simultaneousUploads: this.props.simultaneousUploads,
             fileParameterName: this.props.fileParameterName,
             generateUniqueIdentifier: this.props.generateUniqueIdentifier,
-
+            forceChunkSize: this.props.forceChunkSize
         });
 
         if (typeof this.props.maxFilesErrorCallback === "function") {
@@ -336,5 +336,5 @@ ReactResumableJs.defaultProps = {
     pauseButton: null,
     previousText: "",
     headerObject : {}
-
+    forceChunkSize: false
 };
