@@ -1,4 +1,6 @@
-### Changelog:}
+### Changelog:
+- 1.1.24
+    - Add forceChunkSize https://github.com/Artear/ReactResumableJS/issues/25
 - 1.1.23
     - Fix and improvements https://github.com/Artear/ReactResumableJS/pull/24
 - 1.1.22
