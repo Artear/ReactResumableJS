@@ -335,6 +335,6 @@ ReactResumableJs.defaultProps = {
     startButton: null,
     pauseButton: null,
     previousText: "",
-    headerObject : {}
+    headerObject : {},
     forceChunkSize: false
 };
