@@ -45,6 +45,7 @@ export default class ReactResumableJs extends React.Component {
             testMethod: this.props.testMethod || 'post',
             testChunks: this.props.testChunks || false,
             headers: this.props.headerObject || {},
+            withCredentials: this.props.withCredentials || false,
             chunkSize: this.props.chunkSize,
             simultaneousUploads: this.props.simultaneousUploads,
             fileParameterName: this.props.fileParameterName,
@@ -336,5 +337,6 @@ ReactResumableJs.defaultProps = {
     pauseButton: null,
     previousText: "",
     headerObject : {},
+    withCredentials: false,
     forceChunkSize: false
 };
