@@ -41,10 +41,10 @@
   },
   "homepage": "https://github.com/Artear/ReactResumableJS#readme",
   "dependencies": {
-    "prop-types": "^15.5.0",
-    "react": "^15.0.0",
-    "react-dom": "^15.3.0",
-    "resumablejs": "^1.0.2"
+    "prop-types": "^15.6.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "resumablejs": "^1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
