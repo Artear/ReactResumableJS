@@ -90,12 +90,12 @@ export default class ReactResumableJs extends React.Component {
 
             this.setState({
                 fileList: {files: currentFiles},
-                messageStatus: this.props.completedMessage + file.fileName || fileServer
-            }, () => {
-                if (typeof this.props.onFileSuccess === "function") {
-                    this.props.onFileSuccess(file, fileServer);
-                }
+                messageStatus: this.props.completedMessage || fileServer
             });
+
+            if (typeof this.props.onFileSuccess === "function") {                    
+                this.props.onFileSuccess(file, fileServer);
+            }
         });
 
         ResumableField.on('progress', () => {
