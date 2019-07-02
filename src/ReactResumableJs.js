@@ -24,7 +24,7 @@ export default class ReactResumableJs extends React.Component {
         this.resumable = null;
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
 
         let ResumableField = new Resumablejs({
             target: this.props.service,
@@ -125,7 +125,7 @@ export default class ReactResumableJs extends React.Component {
         });
 
         this.resumable = ResumableField;
-    };
+    }
 
     removeFile = (event, file, index) => {
 
