@@ -191,7 +191,6 @@ var ReactResumableJs = function (_React$Component) {
         };
 
         _this.retryUpload = function () {
-            _this.resumable.retry();
             _this.setState({
                 isUploading: true,
                 hasError: false
