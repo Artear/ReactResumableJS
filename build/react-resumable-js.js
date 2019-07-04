@@ -391,7 +391,7 @@ var ReactResumableJs = function (_React$Component) {
                     _react2.default.createElement(
                         "button",
                         { disabled: !this.state.hasError, className: "btn pause", onClick: this.retryUpload },
-                        this.props.retryButton && "pause"
+                        this.props.retryButton && "retry"
                     )
                 );else retryButton = this.props.retryButton;
             }
