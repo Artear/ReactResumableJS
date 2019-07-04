@@ -158,6 +158,7 @@ var ReactResumableJs = function (_React$Component) {
             _this.resumable.cancel();
 
             _this.setState({
+                isCancelled: true,
                 fileList: { files: [] }
             });
 
@@ -204,6 +205,7 @@ var ReactResumableJs = function (_React$Component) {
             fileList: { files: [] },
             isPaused: false,
             isUploading: false,
+            isCancelled: false,
             hasError: false
         };
 
@@ -350,7 +352,7 @@ var ReactResumableJs = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                         "button",
-                        { disabled: this.state.isUploading, className: "btn start", onClick: this.startUpload },
+                        { disabled: this.state.isUploading || this.state.hasError || this.state.isCancelled, className: "btn start", onClick: this.startUpload },
                         this.props.startButton && "upload"
                     )
                 );else startButton = this.props.startButton;

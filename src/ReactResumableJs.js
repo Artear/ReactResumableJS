@@ -19,6 +19,7 @@ export default class ReactResumableJs extends React.Component {
             fileList: {files: []},
             isPaused: false,
             isUploading: false,
+            isCancelled: false,
             hasError: false,
         };
 
@@ -194,6 +195,7 @@ export default class ReactResumableJs extends React.Component {
         this.resumable.cancel();
 
         this.setState({
+            isCancelled: true,
             fileList: {files: []}
         });
 
@@ -256,7 +258,7 @@ export default class ReactResumableJs extends React.Component {
         let startButton = null;
         if (this.props.startButton) {
             if (typeof this.props.startButton ==="string" || typeof this.props.startButton ==="boolean" ) startButton = <label>
-                <button disabled={this.state.isUploading} className="btn start" onClick={this.startUpload}>{this.props.startButton && "upload"}
+                <button disabled={this.state.isUploading || this.state.hasError || this.state.isCancelled} className="btn start" onClick={this.startUpload}>{this.props.startButton && "upload"}
                 </button>
             </label>;
             else startButton =this.props.startButton
