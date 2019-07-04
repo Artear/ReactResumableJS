@@ -18,7 +18,8 @@ export default class ReactResumableJs extends React.Component {
             messageStatus: '',
             fileList: {files: []},
             isPaused: false,
-            isUploading: false
+            isUploading: false,
+            hasError: false,
         };
 
         this.resumable = null;
@@ -121,6 +122,7 @@ export default class ReactResumableJs extends React.Component {
         });
 
         ResumableField.on('fileError', (file, errorCount) => {
+            this.setState({ hasError: true });
             this.props.onUploadErrorCallback(file, errorCount);
         });
 
@@ -224,6 +226,14 @@ export default class ReactResumableJs extends React.Component {
         this.props.onStartUpload();
     };
 
+    retryUpload = () => {
+        this.setState({
+            isUploading: true,
+            hasError: false
+        });
+        this.props.onResumeUpload();
+    };
+
     render() {
 
         let fileList = null;
@@ -270,6 +280,15 @@ export default class ReactResumableJs extends React.Component {
             else pauseButton = this.props.pauseButton
         }
 
+        let retryButton = null;
+        if (this.props.retryButton) {
+            if (typeof this.props.retryButton ===  "string" || typeof this.props.retryButton ===  "boolean") retryButton = <label>
+                <button disabled={!this.state.hasError} className="btn pause" onClick={this.retryUpload}>{this.props.retryButton && "retry"}
+                </button>
+            </label>;
+            else retryButton = this.props.retryButton
+        }
+
         return (
             <div id={this.props.dropTargetID} ref={node => this.dropZone = node}>
                 {previousText}
@@ -291,6 +310,7 @@ export default class ReactResumableJs extends React.Component {
                 {fileList}
                 {startButton}
                 {pauseButton}
+                {retryButton}
                 {cancelButton}
             </div>
         );
@@ -335,6 +355,7 @@ ReactResumableJs.defaultProps = {
     pause: false,
     startButton: null,
     pauseButton: null,
+    retryButton: null,
     previousText: "",
     headerObject : {},
     withCredentials: false,
