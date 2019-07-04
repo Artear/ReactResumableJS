@@ -190,12 +190,22 @@ var ReactResumableJs = function (_React$Component) {
             _this.props.onStartUpload();
         };
 
+        _this.retryUpload = function () {
+            _this.resumable.retry();
+            _this.setState({
+                isUploading: true,
+                hasError: false
+            });
+            _this.props.onResumeUpload();
+        };
+
         _this.state = {
             progressBar: 0,
             messageStatus: '',
             fileList: { files: [] },
             isPaused: false,
-            isUploading: false
+            isUploading: false,
+            hasError: false
         };
 
         _this.resumable = null;
@@ -300,6 +310,7 @@ var ReactResumableJs = function (_React$Component) {
             });
 
             ResumableField.on('fileError', function (file, errorCount) {
+                _this2.setState({ hasError: true });
                 _this2.props.onUploadErrorCallback(file, errorCount);
             });
 
@@ -372,6 +383,19 @@ var ReactResumableJs = function (_React$Component) {
                 );else pauseButton = this.props.pauseButton;
             }
 
+            var retryButton = null;
+            if (this.props.retryButton) {
+                if (typeof this.props.retryButton === "string" || typeof this.props.retryButton === "boolean") retryButton = _react2.default.createElement(
+                    "label",
+                    null,
+                    _react2.default.createElement(
+                        "button",
+                        { disabled: !this.state.hasError, className: "btn pause", onClick: this.retryUpload },
+                        this.props.retryButton && "pause"
+                    )
+                );else retryButton = this.props.retryButton;
+            }
+
             return _react2.default.createElement(
                 "div",
                 { id: this.props.dropTargetID, ref: function ref(node) {
@@ -402,6 +426,7 @@ var ReactResumableJs = function (_React$Component) {
                 fileList,
                 startButton,
                 pauseButton,
+                retryButton,
                 cancelButton
             );
         }
@@ -451,6 +476,7 @@ ReactResumableJs.defaultProps = {
     pause: false,
     startButton: null,
     pauseButton: null,
+    retryButton: null,
     previousText: "",
     headerObject: {},
     withCredentials: false,
