@@ -291,6 +291,10 @@ var ReactResumableJs = function (_React$Component) {
                 });
             });
 
+            ResumableField.on('fileProgress', function (file) {
+                _this2.props.onFileProgress(file);
+            });
+
             ResumableField.on('progress', function () {
 
                 _this2.setState({
@@ -314,10 +318,6 @@ var ReactResumableJs = function (_React$Component) {
             ResumableField.on('fileError', function (file, errorCount) {
                 _this2.setState({ hasError: true });
                 _this2.props.onUploadErrorCallback(file, errorCount);
-            });
-
-            ResumableField.on('error', function (message, file) {
-                console.error(message, file);
             });
 
             this.resumable = ResumableField;
@@ -469,6 +469,9 @@ ReactResumableJs.defaultProps = {
     },
     onStartUpload: function onStartUpload() {
         return true;
+    },
+    onFileProgress: function onFileProgress(file) {
+        return file;
     },
     disableDragAndDrop: false,
     fileNameServer: "",

@@ -101,6 +101,10 @@ export default class ReactResumableJs extends React.Component {
             });
         });
 
+        ResumableField.on('fileProgress', (file) => {
+            this.props.onFileProgress(file);
+        });
+
         ResumableField.on('progress', () => {
 
 
@@ -345,6 +349,9 @@ ReactResumableJs.defaultProps = {
     },
     onStartUpload: function () {
         return true;
+    },
+    onFileProgress: function(file) {
+        return file;
     },
     disableDragAndDrop: false,
     fileNameServer: "",
