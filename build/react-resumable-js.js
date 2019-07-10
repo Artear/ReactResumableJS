@@ -220,7 +220,7 @@ var ReactResumableJs = function (_React$Component) {
 
             var ResumableField = new _resumablejs2.default({
                 target: this.props.service,
-                query: this.props.query || {},
+                query: this.props.query,
                 fileType: this.props.filetypes,
                 maxFiles: this.props.maxFiles,
                 maxFileSize: this.props.maxFileSize,
@@ -235,14 +235,15 @@ var ReactResumableJs = function (_React$Component) {
                     }
                 },
                 testMethod: this.props.testMethod || 'post',
-                testChunks: this.props.testChunks || false,
+                testChunks: this.props.testChunks,
                 headers: this.props.headerObject || {},
                 withCredentials: this.props.withCredentials || false,
                 chunkSize: this.props.chunkSize,
                 simultaneousUploads: this.props.simultaneousUploads,
                 fileParameterName: this.props.fileParameterName,
                 generateUniqueIdentifier: this.props.generateUniqueIdentifier,
-                forceChunkSize: this.props.forceChunkSize
+                forceChunkSize: this.props.forceChunkSize,
+                chunkRetryInterval: this.props.chunkRetryInterval
             });
 
             if (typeof this.props.maxFilesErrorCallback === "function") {
@@ -313,6 +314,10 @@ var ReactResumableJs = function (_React$Component) {
             ResumableField.on('fileError', function (file, errorCount) {
                 _this2.setState({ hasError: true });
                 _this2.props.onUploadErrorCallback(file, errorCount);
+            });
+
+            ResumableField.on('error', function (message, file) {
+                console.error(message, file);
             });
 
             this.resumable = ResumableField;
@@ -481,5 +486,8 @@ ReactResumableJs.defaultProps = {
     previousText: "",
     headerObject: {},
     withCredentials: false,
-    forceChunkSize: false
+    forceChunkSize: false,
+    query: {},
+    testChunks: false,
+    chunkRetryInterval: 1000
 };

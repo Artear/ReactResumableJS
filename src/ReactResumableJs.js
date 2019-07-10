@@ -30,7 +30,7 @@ export default class ReactResumableJs extends React.Component {
 
         let ResumableField = new Resumablejs({
             target: this.props.service,
-            query: this.props.query || {},
+            query: this.props.query,
             fileType: this.props.filetypes,
             maxFiles: this.props.maxFiles,
             maxFileSize: this.props.maxFileSize,
@@ -45,14 +45,15 @@ export default class ReactResumableJs extends React.Component {
                 }
             },
             testMethod: this.props.testMethod || 'post',
-            testChunks: this.props.testChunks || false,
+            testChunks: this.props.testChunks,
             headers: this.props.headerObject || {},
             withCredentials: this.props.withCredentials || false,
             chunkSize: this.props.chunkSize,
             simultaneousUploads: this.props.simultaneousUploads,
             fileParameterName: this.props.fileParameterName,
             generateUniqueIdentifier: this.props.generateUniqueIdentifier,
-            forceChunkSize: this.props.forceChunkSize
+            forceChunkSize: this.props.forceChunkSize,
+            chunkRetryInterval: this.props.chunkRetryInterval
         });
 
         if (typeof this.props.maxFilesErrorCallback === "function") {
@@ -361,5 +362,8 @@ ReactResumableJs.defaultProps = {
     previousText: "",
     headerObject : {},
     withCredentials: false,
-    forceChunkSize: false
+    forceChunkSize: false,
+    query: {},
+    testChunks: false,
+    chunkRetryInterval: 1000
 };
