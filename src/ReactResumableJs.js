@@ -18,17 +18,19 @@ export default class ReactResumableJs extends React.Component {
             messageStatus: '',
             fileList: {files: []},
             isPaused: false,
-            isUploading: false
+            isUploading: false,
+            isCancelled: false,
+            hasError: false,
         };
 
         this.resumable = null;
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
 
         let ResumableField = new Resumablejs({
             target: this.props.service,
-            query: this.props.query || {},
+            query: this.props.query,
             fileType: this.props.filetypes,
             maxFiles: this.props.maxFiles,
             maxFileSize: this.props.maxFileSize,
@@ -43,14 +45,15 @@ export default class ReactResumableJs extends React.Component {
                 }
             },
             testMethod: this.props.testMethod || 'post',
-            testChunks: this.props.testChunks || false,
+            testChunks: this.props.testChunks,
             headers: this.props.headerObject || {},
             withCredentials: this.props.withCredentials || false,
             chunkSize: this.props.chunkSize,
             simultaneousUploads: this.props.simultaneousUploads,
             fileParameterName: this.props.fileParameterName,
             generateUniqueIdentifier: this.props.generateUniqueIdentifier,
-            forceChunkSize: this.props.forceChunkSize
+            forceChunkSize: this.props.forceChunkSize,
+            chunkRetryInterval: this.props.chunkRetryInterval
         });
 
         if (typeof this.props.maxFilesErrorCallback === "function") {
@@ -98,6 +101,10 @@ export default class ReactResumableJs extends React.Component {
             });
         });
 
+        ResumableField.on('fileProgress', (file) => {
+            this.props.onFileProgress(file);
+        });
+
         ResumableField.on('progress', () => {
 
 
@@ -121,11 +128,12 @@ export default class ReactResumableJs extends React.Component {
         });
 
         ResumableField.on('fileError', (file, errorCount) => {
+            this.setState({ hasError: true });
             this.props.onUploadErrorCallback(file, errorCount);
         });
 
         this.resumable = ResumableField;
-    };
+    }
 
     removeFile = (event, file, index) => {
 
@@ -192,6 +200,7 @@ export default class ReactResumableJs extends React.Component {
         this.resumable.cancel();
 
         this.setState({
+            isCancelled: true,
             fileList: {files: []}
         });
 
@@ -224,6 +233,14 @@ export default class ReactResumableJs extends React.Component {
         this.props.onStartUpload();
     };
 
+    retryUpload = () => {
+        this.setState({
+            isUploading: true,
+            hasError: false
+        });
+        this.props.onResumeUpload();
+    };
+
     render() {
 
         let fileList = null;
@@ -246,7 +263,7 @@ export default class ReactResumableJs extends React.Component {
         let startButton = null;
         if (this.props.startButton) {
             if (typeof this.props.startButton ==="string" || typeof this.props.startButton ==="boolean" ) startButton = <label>
-                <button disabled={this.state.isUploading} className="btn start" onClick={this.startUpload}>{this.props.startButton && "upload"}
+                <button disabled={this.state.isUploading || this.state.hasError || this.state.isCancelled} className="btn start" onClick={this.startUpload}>{this.props.startButton && "upload"}
                 </button>
             </label>;
             else startButton =this.props.startButton
@@ -270,6 +287,15 @@ export default class ReactResumableJs extends React.Component {
             else pauseButton = this.props.pauseButton
         }
 
+        let retryButton = null;
+        if (this.props.retryButton) {
+            if (typeof this.props.retryButton ===  "string" || typeof this.props.retryButton ===  "boolean") retryButton = <label>
+                <button disabled={!this.state.hasError} className="btn pause" onClick={this.retryUpload}>{this.props.retryButton && "retry"}
+                </button>
+            </label>;
+            else retryButton = this.props.retryButton
+        }
+
         return (
             <div id={this.props.dropTargetID} ref={node => this.dropZone = node}>
                 {previousText}
@@ -291,6 +317,7 @@ export default class ReactResumableJs extends React.Component {
                 {fileList}
                 {startButton}
                 {pauseButton}
+                {retryButton}
                 {cancelButton}
             </div>
         );
@@ -323,6 +350,9 @@ ReactResumableJs.defaultProps = {
     onStartUpload: function () {
         return true;
     },
+    onFileProgress: function(file) {
+        return file;
+    },
     disableDragAndDrop: false,
     fileNameServer: "",
     tmpDir: "",
@@ -335,8 +365,12 @@ ReactResumableJs.defaultProps = {
     pause: false,
     startButton: null,
     pauseButton: null,
+    retryButton: null,
     previousText: "",
     headerObject : {},
     withCredentials: false,
-    forceChunkSize: false
+    forceChunkSize: false,
+    query: {},
+    testChunks: false,
+    chunkRetryInterval: 1000
 };
