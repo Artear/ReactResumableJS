@@ -52,7 +52,7 @@
     "minimist": "^1.2.0",
     "mocha": "^3.0.0",
     "null-loader": "^0.1.1",
-    "open": "0.0.5",
+    "open": "7.0.0",
     "phantomjs-prebuilt": "^2.0.0",
     "pm2": "^2.0.15",
     "react-addons-test-utils": "^15.0.0",
